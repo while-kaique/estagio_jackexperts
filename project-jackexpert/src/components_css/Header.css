@@ -1,0 +1,109 @@
+@keyframes openMenu { /* Display Block quando abre o menu*/
+    100%{
+        transform: translateX(0%);
+    }
+}
+
+@keyframes closeMenu {  /* Display hidden somente na função setTimeout de 1s do Header.jsx*/
+    100%{
+        transform: translateX(-100%);
+    }
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.171);
+}
+.log_reg {
+    cursor: pointer;
+    margin: 20px 20px 0px 0px;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+}
+.menuIcon {
+    cursor: pointer;
+    margin: 20px 0px 0px 20px;
+    width: 100px;
+    height: 80px;
+    
+    background-color: #030303;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.534);
+}
+
+.menu.open .mainMenu{
+    position: absolute;
+    transform: translateX(-100%);
+    top: 0;
+    left: 0;
+
+    width: 80vw;
+    height: 100vh;
+
+    animation: openMenu .5s forwards;
+    z-index: 2;
+}
+
+.menu.close .mainMenu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 80vw;
+    height: 100vh;
+    
+    animation: closeMenu .5s forwards;
+    z-index: 2;
+}
+
+.menu .mainMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70vw;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.13);
+}
+
+
+.sectionClose {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: 80px;
+    border: 1px solid red;
+}
+
+.sectionClose .xbutton{
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+
+    cursor: pointer;
+}
+
+ul.tags li{
+    margin: 20px;
+    font-weight: 500;
+    color: #717e9c;
+    list-style-type: none;
+
+}
+
+ul.tags li a{
+    text-decoration: none;
+    cursor: pointer;
+}

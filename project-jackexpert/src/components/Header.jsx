@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-
+import '../components_css/Header.css'
+import Menu from "../sub_elements/Menu";
 
 const Header = () => {
 
@@ -10,8 +11,6 @@ const Header = () => {
     };
   }
   const [screenSize, setScreenSize] = useState(getCurrentDimension().width);
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
-
 
   useEffect(() => {
     const updateDimension = () => { 
@@ -28,14 +27,9 @@ const Header = () => {
   return (
     <header>
       {screenSize >= 480 ? 
-      
+
       <div className="header">
-        <div className="menuIcon">
-          <div className="bar1"></div>
-          <div className="bar2"></div>
-          <div className="bar3"></div>
-        </div>
-        {menuIsOpen ? <div></div> : null}
+        <Menu/>
         <div className="log_reg">
            
         </div>

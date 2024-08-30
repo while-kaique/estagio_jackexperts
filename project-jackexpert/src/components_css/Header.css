@@ -12,24 +12,24 @@
 .header{
     display: flex;
     justify-content: space-between;
-    width: 100vw;
-    height: 200px;
-    background-color: rgba(0, 0, 0, 0.171);
+    align-items: center;
+
+    margin: auto;
+    width: 80vw;
+    height: 140px;
 }
 .log_reg {
     cursor: pointer;
-    margin: 20px 20px 0px 0px;
-    width: 50px;
-    height: 50px;
-    background-color: black;
+    width: 35px;
+    height: 30px;
 }
 .menuIcon {
+    position: relative;
     cursor: pointer;
-    margin: 20px 0px 0px 20px;
-    width: 100px;
-    height: 80px;
+    width: 35px;
+    height: 30px;
+
     
-    background-color: #030303;
 }
 
 .menu {
@@ -38,6 +38,27 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.534);
+}
+
+.menuIcon .bar1, .menuIcon .bar2, .menuIcon .bar3{
+    position: absolute;
+    transform: translate(0%, -50%);
+
+    width: 100%;
+    height: 4px;
+    border-radius: 10px;
+    background-color: #2E3A59;
+    
+}
+.menuIcon .bar1{
+    top: 5px;
+}
+.menuIcon .bar2{
+    top: 50%;
+    width: 70%;
+}
+.menuIcon .bar3{
+    top: calc(100% - 5px);
 }
 
 .menu.open .mainMenu{
@@ -49,7 +70,7 @@
     width: 80vw;
     height: 100vh;
 
-    animation: openMenu .5s forwards;
+    animation: openMenu .4s forwards;
     z-index: 2;
 }
 
@@ -61,7 +82,7 @@
     width: 80vw;
     height: 100vh;
     
-    animation: closeMenu .5s forwards;
+    animation: closeMenu .4s forwards;
     z-index: 2;
 }
 
@@ -101,6 +122,9 @@ ul.tags li{
     color: #717e9c;
     list-style-type: none;
 
+}
+ul.tags li a:hover{
+    text-decoration: underline;
 }
 
 ul.tags li a{

@@ -23,13 +23,13 @@ const Menu = () => {
                 setMenuClass('close')
                 setTimeout(() => {
                 setCanMenu(false)
-                }, 600);}}></div>
+                }, 400);}}></div>
             </section>
 
             <ul className="tags">
-            <li><a href="#">Minhas Tarefas</a></li>
-            <li><a href="#">Concluídas</a></li>
-            <li><a href="#">Canceladas</a></li>
+                <li><a href="#">Minhas Tarefas</a></li>
+                <li><a href="#">Concluídas</a></li>
+                <li><a href="#">Canceladas</a></li>
             </ul>
         </div>
         </div> 

@@ -1,0 +1,79 @@
+section.initInfo {
+    margin-left: 50px;
+    margin-bottom: 70px;
+}
+.initInfo h1{
+    font-size: 2.4rem;
+}
+.initInfo p{
+    padding-top: 4px;
+    font-size: 1.1rem;
+    font-weight: 400;
+
+    color: #2e3a5979;
+    
+}
+
+/* CATEGORIAS DE TAREFAS */
+/* CATEGORIAS DE TAREFAS */
+
+section.task_categ{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    margin: 20px 0px;
+    width: 100vw;
+    height: 40px;
+}
+.task_categ div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #E5EAFC;  
+    color: #2E3A59;
+
+    border-radius: 40px;
+    width: 130px;
+    height: 50px;
+}
+.task_categ div h1{
+    font-size: .9rem;
+    font-weight: 400;
+
+
+    text-align: center;
+}
+.task_categ div.active{
+    background-color: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.082);
+}
+
+/* CARDS DE TAREFAS */
+/* CARDS DE TAREFAS */
+
+section.cards {
+    width: 1000vw;
+    display: flex;
+    flex-wrap: nowrap;
+    height: 280px;
+    margin: 30px 0px;
+    margin-left: 20px;
+
+    transition: 1s;
+
+}
+.cards .card {
+    transform: translateX(-300px);
+    display: block;
+    width: 280px;
+    height: 280px;
+    margin-right: 20px;
+
+    background-color: #3A49F9;
+    border-radius: 20px;
+
+    transition: 1s;
+}

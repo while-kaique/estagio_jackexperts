@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import '../components_css/Header.css'
 import Menu from "../sub_elements/Menu";
 
+import { FaUserCircle } from "react-icons/fa";
+
 const Header = () => {
 
   function getCurrentDimension() {
@@ -30,9 +32,7 @@ const Header = () => {
 
       <div className="header">
         <Menu/>
-        <div className="log_reg">
-           
-        </div>
+        <FaUserCircle className="log_reg"/>
       </div>
       
       : <div>não passou</div>}

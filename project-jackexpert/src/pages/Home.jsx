@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
       <section className="initInfo">
-        <h1>Olá Kaique!</h1>
+        <h1>Olá, Kaique!</h1>
         <p>Tenha um ótimo dia.</p>
       </section>
 

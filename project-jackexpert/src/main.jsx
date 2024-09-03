@@ -10,7 +10,6 @@ import Tasks from './pages/Tasks.jsx'
 import ErrorPage from './error-page.jsx'
 import './index.css'
 import Home from './pages/Home.jsx'
-import Home2 from './pages/Home2.jsx'
 
 const router = createBrowserRouter([
   {

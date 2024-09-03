@@ -1,0 +1,28 @@
+.container {
+  width: 600px; /* Ajuste conforme necessário */
+  overflow: hidden;
+}
+
+.cards-wrapper {
+  display: flex;
+  overflow-x: auto; /* Permite rolagem horizontal */
+  overflow-y: hidden; /* Remove rolagem vertical */
+  width: 100%; /* Ocupa toda a largura do container */
+  cursor: grab; /* Cursor de mão para indicar arrasto */
+}
+
+.cards-wrapper:active {
+  cursor: grabbing; /* Cursor de mão segurando ao arrastar */
+}
+
+.card {
+  min-width: 200px;
+  margin: 10px;
+  padding: 20px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  user-select: none; /* Evita seleção de texto ao arrastar */
+}

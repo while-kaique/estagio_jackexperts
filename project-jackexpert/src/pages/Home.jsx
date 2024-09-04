@@ -1,7 +1,8 @@
 
 import { useState, useRef } from 'react';
 import '../components_css/Home.css'
-import CardScroll from '../sub_elements/CardScroll';
+import CardScroll2 from '../sub_elements/CardScroll2';
+import { CgMathPlus } from "react-icons/cg";
 
 
 const Home = () => {
@@ -14,13 +15,9 @@ const Home = () => {
   }
   const handleTaskCategory = (e) => {
     taskCategories.current.forEach(div => {
-      console.log(div.classList + ' ANTES DO REMOVE')
       div.classList.remove('active')
-      console.log(div.classList + ' DEPOIS DO REMOVE')
     });
-    console.log(e.target.classList + ' ANTES DO add')
     e.target.classList.add('active')
-    console.log(e.target.classList + ' DEPOIS DO add')
   }
 
   return (
@@ -54,13 +51,9 @@ const Home = () => {
       </div>
       </section>
       {/* CARD SCROLL */}
-      <CardScroll showCards={showCards}/>
+      <CardScroll2 showCards={showCards}/>
 
-      <button type="button" onClick={()=>{handleShowCards()}}>SETA REAL</button>
-      <button type="button">SETA</button>
-      <button type="button">SETA</button>
-      <button type="button">SETA</button>
-      <button type="button">SETA</button>
+      <button type="button" className='btn_showMore' onClick={()=>{handleShowCards()}}><CgMathPlus className='arrowIcon'/></button>
       <h1>eae</h1>
       <h1>eae</h1>
       <h1>eae</h1>

@@ -1,8 +1,8 @@
 
 import { useState, useRef } from 'react';
 import '../components_css/Home.css'
-import CardScroll2 from '../sub_elements/CardScroll2';
-import { CgMathPlus } from "react-icons/cg";
+import CardScroll from '../sub_elements/CardScroll';
+import { CgMathMinus } from "react-icons/cg";
 
 
 const Home = () => {
@@ -11,7 +11,8 @@ const Home = () => {
   const taskCategories = useRef([])
 
   const handleShowCards = () => {
-    setShowCards(true)
+    console.log('opa')
+    setShowCards(!showCards)
   }
   const handleTaskCategory = (e) => {
     taskCategories.current.forEach(div => {
@@ -51,13 +52,10 @@ const Home = () => {
       </div>
       </section>
       {/* CARD SCROLL */}
-      <CardScroll2 showCards={showCards}/>
+      <h1 className='main_tasks'>Seus projetos favoritos</h1>
+      <CardScroll showCards={showCards} handleShowCards={handleShowCards}/>
 
-      <button type="button" className='btn_showMore' onClick={()=>{handleShowCards()}}><CgMathPlus className='arrowIcon'/></button>
-      <h1>eae</h1>
-      <h1>eae</h1>
-      <h1>eae</h1>
-      <h1>eae</h1>
+      {showCards ? <button type="button" className='btn_showLess' onClick={()=>{handleShowCards()}}><CgMathMinus className='minusIcon'/></button> : null}
     </>
   )
 }

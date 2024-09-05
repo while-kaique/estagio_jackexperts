@@ -1,11 +1,8 @@
 section.initInfo {
-    margin-left: 50px;
+    margin-left: 10vw;
     margin-bottom: 70px;
 }
-.initInfo h1{
-    font-size: 2.4rem;
-    color: #2E3A59;
-}
+
 .initInfo p{
     padding-top: 4px;
     font-size: 1.1rem;
@@ -17,6 +14,10 @@ section.initInfo {
 
 /* CATEGORIAS DE TAREFAS */
 /* CATEGORIAS DE TAREFAS */
+h1.main_tasks{
+    font-size: 1.8rem;
+    margin-left: 10vw;
+}
 
 section.task_categ{
     display: flex;
@@ -58,7 +59,7 @@ section.task_categ{
 /* BOTÃO PARA MOSTRAR MAIS */
 /* BOTÃO PARA MOSTRAR MAIS */
 
-.btn_showMore {
+.btn_showLess {
     display: block;
     position: relative;
 
@@ -67,14 +68,16 @@ section.task_categ{
     border-radius: 50%;
 
     margin: auto;
-    margin-top: -50px;
+    margin-bottom: 20px;
 
     background-color: #0a4268;
 
     border: 0;
+
+    cursor: pointer;
 }
 
-.btn_showMore .arrowIcon{
+.btn_showLess .minusIcon{
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;

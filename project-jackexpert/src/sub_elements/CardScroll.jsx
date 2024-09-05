@@ -5,9 +5,14 @@ import './CardScroll.css'
 
 const CardScroll = ({handleShowCards, showCards}) => {
 
+  const cards = useRef([])
+  const cardsWrappler = useRef(null)
+  const [canClickNext, setCanClickNext] = useState([false, true, false, false, false])
+  const [canClickPrev, setCanClickPrev] = useState([false, false, false, false, false])
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   useEffect(()=>{
     if (!showCards){
-      console.log('OI')
       setCanClickNext([false, true, false, false, false])
       setCanClickPrev([false, false, false, false, false])
       cards.current.forEach(card => {
@@ -19,7 +24,6 @@ const CardScroll = ({handleShowCards, showCards}) => {
             card.classList.add('next')
             break;
           default:
-              console.log('deu rim')
             break;
         }
       });
@@ -32,13 +36,8 @@ const CardScroll = ({handleShowCards, showCards}) => {
     }
   },[showCards])
 
-  const cards = useRef([])
-  const cardsWrappler = useRef(null)
-  const [canClickNext, setCanClickNext] = useState([false, true, false, false, false])
-  const [canClickPrev, setCanClickPrev] = useState([false, false, false, false, false])
-
-  const handleCardNext = (nextCard) => {
-    const index = Number(nextCard.target.id);
+  const handleCardChange = (index) => {
+    setCurrentIndex(index)
     
     cards.current.forEach(card => {
       card.classList.remove('active')
@@ -53,7 +52,7 @@ const CardScroll = ({handleShowCards, showCards}) => {
     setCanClickPrev(newCanClickPrev);
     setCanClickNext(newCanClickNext);
 
-    nextCard.target.classList.add('active');
+    cards.current[index]
     if (cards.current[index + 1]) {
       cards.current[index + 1].classList.add('next');
     }
@@ -61,39 +60,8 @@ const CardScroll = ({handleShowCards, showCards}) => {
       cards.current[index - 1].classList.add('prev');
     }
 
-    /// PROXIMA ETAPA: MUDAR LEFT
-    console.log(cardsWrappler.current.scrollLeft)
-    cardsWrappler.current.scrollLeft += 300
-  }
-
-  const handleCardPrev = (prevCard) => {
-    const index = Number(prevCard.target.id);
-
-    
-    cards.current.forEach(card => {
-      card.classList.remove('active')
-      card.classList.remove('next')
-      card.classList.remove('prev')
-    });
-
-    const newCanClickPrev = canClickPrev.map((val, i) => i === index - 1);
-    
-    const newCanClickNext = canClickNext.map((val, i) => i === index + 1);
-    
-    setCanClickPrev(newCanClickPrev);
-    setCanClickNext(newCanClickNext);
-
-    prevCard.target.classList.add('active');
-    if (cards.current[index + 1]) {
-      cards.current[index + 1].classList.add('next');
-    }
-    if (cards.current[index - 1]) {
-      cards.current[index - 1].classList.add('prev');
-    }
-
-    /// PROXIMA ETAPA: MUDAR LEFT
-    console.log(cardsWrappler.current.scrollLeft)
-    cardsWrappler.current.scrollLeft -= 300
+    /// PROXIMA ETAPA: AVANÇAR SCROLL
+    cardsWrappler.current.scrollLeft = index * 300
   }
 
   return (
@@ -102,36 +70,59 @@ const CardScroll = ({handleShowCards, showCards}) => {
         <div className="card first active" 
           id={0} 
           ref={(el) => cards.current[0] = el}
-          onClick={canClickNext[0] ? (e)=>{handleCardNext(e)} : canClickPrev[0] ? (e)=>{handleCardPrev(e)} : null}
+          onClick={()=> handleCardChange(0)}
         ></div>
 
         <div className="card next" 
           id={1} 
           ref={(el) => cards.current[1] = el}
-          onClick={canClickNext[1] ? (e)=>{handleCardNext(e)} : canClickPrev[1] ? (e)=>{handleCardPrev(e)} : null}
+          onClick={()=> handleCardChange(1)}
         ></div>
 
         <div className="card" 
           id={2} 
           ref={(el) => cards.current[2] = el}
-          onClick={canClickNext[2] ? (e)=>{handleCardNext(e)} : canClickPrev[2] ? (e)=>{handleCardPrev(e)} : null}
+          onClick={()=> handleCardChange(2)}
         ></div>
 
         <div className="card" 
           id={3} 
           ref={(el) => cards.current[3] = el}
-          onClick={canClickNext[3] ? (e)=>{handleCardNext(e)} : canClickPrev[3] ? (e)=>{handleCardPrev(e)} : null}
+          onClick={()=> handleCardChange(3)}
         ></div>
 
         <div className="card" 
           id={4} 
           ref={(el) => cards.current[4] = el}
-          onClick={canClickNext[4] ? (e)=>{handleCardNext(e)} : canClickPrev[4] ? (e)=>{handleCardPrev(e)} : null}
+          onClick={()=> handleCardChange(4)}
         ></div>
         {!showCards ? <div className="card empty" onClick={()=>{handleShowCards()}}></div> : null}
 
       </div>
-      
+
+      {!showCards ? 
+      <div className="navigation-dots">
+        <div
+          className={`dot ${currentIndex === 0 ? 'active' : ''}`}
+          onClick={() => handleCardChange(0)}
+        ></div>
+        <div
+          className={`dot ${currentIndex === 1 ? 'active' : ''}`}
+          onClick={() => handleCardChange(1)}
+        ></div>
+        <div
+          className={`dot ${currentIndex === 2 ? 'active' : ''}`}
+          onClick={() => handleCardChange(2)}
+        ></div>
+        <div
+          className={`dot ${currentIndex === 3 ? 'active' : ''}`}
+          onClick={() => handleCardChange(3)}
+        ></div>
+        <div
+          className={`dot ${currentIndex === 4 ? 'active' : ''}`}
+          onClick={() => handleCardChange(4)}
+        ></div>
+      </div> : null}
     </section>
   )
 }

@@ -7,6 +7,8 @@
     height: auto;
     margin: auto;
     overflow: hidden;
+
+    margin-bottom: 100px;
   }
   div.pj_cards {
     display: flex;
@@ -65,4 +67,28 @@
   }
   .pj_cards .card.empty {
     background-color: rgba(99, 99, 99, 0.288);
+  }
+
+  /* .DOT BALLS */
+  /* .DOT BALLS */
+
+  .navigation-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    border-radius: 10px;
+    background-color: lightgray;
+    cursor: pointer;
+    transition: .3s;
+  }
+  
+  .dot.active {
+    background-color: #3498db;
+    width: 40px;
   }

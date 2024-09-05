@@ -55,7 +55,14 @@ const Home = () => {
       <h1 className='main_tasks'>Seus projetos favoritos</h1>
       <CardScroll showCards={showCards} handleShowCards={handleShowCards}/>
 
-      {showCards ? <button type="button" className='btn_showLess' onClick={()=>{handleShowCards()}}><CgMathMinus className='minusIcon'/></button> : null}
+      {showCards ? 
+      <button 
+        type="button" 
+        className='btn_showLess' 
+        onClick={()=>{handleShowCards()}}
+      >
+          <CgMathMinus className='minusIcon'/>
+      </button> : null}
     </>
   )
 }

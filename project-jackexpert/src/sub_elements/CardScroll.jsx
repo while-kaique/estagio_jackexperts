@@ -15,6 +15,7 @@ const CardScroll = ({handleShowCards, showCards}) => {
     if (!showCards){
       setCanClickNext([false, true, false, false, false])
       setCanClickPrev([false, false, false, false, false])
+      setCurrentIndex(0)
       cards.current.forEach(card => {
         switch (Number(card.id)) {
           case 0:

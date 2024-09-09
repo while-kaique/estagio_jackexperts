@@ -1,3 +1,4 @@
+/* HEADER DA TASK */
 .task .cardHeader{
 
     width: 100%;
@@ -55,6 +56,9 @@
     font-weight: 400;
     padding: 5px 0px;
 }
+.cardHeader .title h2, .cardHeader .date h2{
+    font-weight: 500;
+}
 
 
 /*SEGUNDA SECTION*/
@@ -63,30 +67,36 @@
     margin-top: -10px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(36, 36, 36, 0.603);
 
     z-index: 1;
 }
 .cardDesc .desc{
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
+    align-items: center;
+
+    gap: 20px;
 
     padding: 30px 40px;
     height: calc(45vh + 10px);
     margin: auto;
+
 }
 
 .task .cardDesc .desc h1{
     color: #b1b8d3;
     font-size: 1.1rem;
     font-weight: 300;
-    width: 100%;
+    width: 80%;
 }
 .task .cardDesc .desc p{
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     width: 80%;
-
+    color: #2E3A59;
     word-break: break-all;
     hyphens: auto;
 }
@@ -112,7 +122,7 @@
 
     background-color: #fff;
 
-    border-radius: 30px;
+    border-radius: 20px;
 
 }
 .confirmCard h1{
@@ -136,26 +146,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-top: 1px solid rgb(179, 179, 179);
-}
-.confirmCard .button div#yes{
-    height: 100%;
-    border-left: 1px solid rgb(179, 179, 179);
-
-    cursor: pointer;
+    margin: auto;
 }
 .confirmCard div#yes{
-    background-color: #7cfc26c4;
-    border-bottom-left-radius: 30px;
+    height: 50%;
+    width: 80%;
+
+    cursor: pointer;
+
+    color: white;
+}
+.confirmCard div#yes p{
+    border-radius: 3px;
+    width: 80%;
+    background-color: #0077c7c4;
 }
 
 .confirmCard div#no{
-    background-color: #ffffffc4;
-    border-bottom-right-radius: 30px;
-}
-.confirmCard .button div#no{
-    height: 100%;
-    border-left: 1px solid rgb(179, 179, 179);
+    height: 50%;
+    width: 80%;
 
     cursor: pointer;
+    background-color: #ffffffc4;
+    border-bottom-right-radius: 20px;
 }

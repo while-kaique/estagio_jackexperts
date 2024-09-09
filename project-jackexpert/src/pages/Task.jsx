@@ -9,8 +9,8 @@ const Task = () => {
 
   const navigate = useNavigate()
 
-  const init_task = {title: 'Fazer cocô', startTime: '07/09/2024', endTime: '07/09/2024', description: 'Eu preciso MUITO cortar o rabo do macaco.'}
-  const [task, setTask] = useState(init_task)
+  const init_task = {title: 'Fazer cocô', startTime: '07/09/2024', endTime: '07/09/2024', description: 'Eu preciso MUITO cortar o rabo doKDAKDAKDAKDAKDKADKAKDAKDKADKAKDAKDAK macaco.'}
+  const [task] = useState(init_task)
   const [confirmScreen, setConfirmScreen] = useState(false)
   // const { taskId, projectId } = useParams()
 
@@ -27,7 +27,7 @@ const Task = () => {
 
   return (  
     <div className="task">
-
+      
       {/* HEADER DO CARD */}
       {confirmScreen ?
       <div className="confirmSave">
@@ -61,7 +61,7 @@ const Task = () => {
       <section className="cardDesc">
         <div className="desc">
           <h1>Descrição</h1>
-          <p>{task.description}</p>
+          <p lang='pt-br'>{task.description}</p>
         </div>
       </section>
 

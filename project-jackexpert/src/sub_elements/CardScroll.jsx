@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
+
 import './CardScroll.css'
 
 
 const CardScroll = ({handleShowCards, showCards}) => {
+
+  const navigate = useNavigate()
 
   const cards = useRef([])
   const cardsWrappler = useRef(null)
@@ -37,7 +41,12 @@ const CardScroll = ({handleShowCards, showCards}) => {
     }
   },[showCards])
 
-  const handleCardChange = (index) => {
+  const handleCardChange = (index, card) => {
+    if (card){
+      if (card.target.className.indexOf('active') !== -1) {
+        navigate(`/projects/0/tasks/${card.target.id}`)
+      }
+    }
     setCurrentIndex(index)
     
     cards.current.forEach(card => {
@@ -53,7 +62,7 @@ const CardScroll = ({handleShowCards, showCards}) => {
     setCanClickPrev(newCanClickPrev);
     setCanClickNext(newCanClickNext);
 
-    cards.current[index]
+    cards.current[index].classList.add('active')
     if (cards.current[index + 1]) {
       cards.current[index + 1].classList.add('next');
     }
@@ -71,31 +80,31 @@ const CardScroll = ({handleShowCards, showCards}) => {
         <div className="card first active" 
           id={0} 
           ref={(el) => cards.current[0] = el}
-          onClick={()=> handleCardChange(0)}
+          onClick={(e)=> handleCardChange(0, e)}
         ></div>
 
         <div className="card next" 
           id={1} 
           ref={(el) => cards.current[1] = el}
-          onClick={()=> handleCardChange(1)}
+          onClick={(e)=> handleCardChange(1, e)}
         ></div>
 
         <div className="card" 
           id={2} 
           ref={(el) => cards.current[2] = el}
-          onClick={()=> handleCardChange(2)}
+          onClick={(e)=> handleCardChange(2, e)}
         ></div>
 
         <div className="card" 
           id={3} 
           ref={(el) => cards.current[3] = el}
-          onClick={()=> handleCardChange(3)}
+          onClick={(e)=> handleCardChange(3, e)}
         ></div>
 
         <div className="card" 
           id={4} 
           ref={(el) => cards.current[4] = el}
-          onClick={()=> handleCardChange(4)}
+          onClick={(e)=> handleCardChange(4, e)}
         ></div>
         {!showCards ? <div className="card empty" onClick={()=>{handleShowCards()}}></div> : null}
 

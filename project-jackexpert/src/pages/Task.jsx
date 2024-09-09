@@ -59,10 +59,10 @@ const Task = () => {
 
       {/* DESCRIÇÃO DO CARD */}
       <section className="cardDesc">
-        <section className="desc">
+        <div className="desc">
           <h1>Descrição</h1>
           <p>{task.description}</p>
-        </section>
+        </div>
       </section>
 
     </div>

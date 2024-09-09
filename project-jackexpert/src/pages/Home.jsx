@@ -1,6 +1,6 @@
 
 import { useState, useRef } from 'react';
-import '../components_css/Home.css'
+import '../pages_css/Home.css'
 import CardScroll from '../sub_elements/CardScroll';
 import { CgMathMinus } from "react-icons/cg";
 

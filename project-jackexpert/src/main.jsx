@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 
 import App from './App.jsx'
-import Tasks from './pages/Tasks.jsx'
+import Task from './pages/Task.jsx'
 import ErrorPage from './error-page.jsx'
 import './index.css'
 import Home from './pages/Home.jsx'
@@ -19,13 +19,13 @@ const router = createBrowserRouter([
       {
         path:'/',
         element: <Home/>
-      },
-      { 
-        path: "my_tasks",
-        element: <Tasks/>
       }
     ]
   },
+  { 
+    path: "projects/:projectId/tasks/:taskId",
+    element: <Task/>
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(

@@ -1,0 +1,156 @@
+.task .cardHeader{
+
+    width: 100%;
+    border: 1px solid blue;
+    background-image: linear-gradient(to right, #9C2CF3, #3A49F9);
+    padding: 20px 40px;
+    padding-bottom: 50px;
+
+    color: white;
+
+    z-index: 0;
+}
+
+.task .init{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: auto;
+    padding: 20px 0px;
+
+}
+.task .init .back_icon{
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgb(255, 0, 0);
+
+    cursor: pointer;
+}
+.task .cardHeader h1{
+    color: white;
+    font-size: 1.3rem;
+}
+.task .cardHeader .save{
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgb(255, 0, 0);
+
+    cursor: pointer;
+}
+
+
+.cardHeader .title, .cardHeader .date{
+    display: flex;
+    flex-wrap: wrap;
+
+    border-bottom: 1px solid rgba(172, 172, 172, 0.486);
+    
+    padding: 5px 0px;
+}
+.cardHeader .title h1, .cardHeader .date h1{
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 400;
+    padding: 5px 0px;
+}
+
+
+/*SEGUNDA SECTION*/
+.task .cardDesc{
+    background-color: white;
+    margin-top: -10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    z-index: 1;
+}
+.cardDesc .desc{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    padding: 30px 40px;
+    margin: auto;
+}
+
+.task .cardDesc .desc h1{
+    color: #b1b8d3;
+    font-size: 1.1rem;
+    font-weight: 300;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.task .cardDesc .desc p{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* TELA DE CONFIRMAÇÃO DE SAVE */
+
+.confirmSave {
+    position: absolute;
+
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.466);
+}
+
+.confirmSave .confirmCard{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+
+    width: 300px;
+    height: 250px;
+
+    background-color: #fff;
+
+    border-radius: 30px;
+
+}
+.confirmCard h1{
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 15px;
+    height: 70%;
+}
+.confirmCard div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+
+    text-align: center;
+
+}
+
+.confirmCard .button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgb(179, 179, 179);
+}
+.confirmCard .button div#yes{
+    height: 100%;
+    border-left: 1px solid rgb(179, 179, 179);
+
+    cursor: pointer;
+}
+.confirmCard div#yes{
+    background-color: #7cfc26c4;
+    border-bottom-left-radius: 30px;
+}
+
+.confirmCard div#no{
+    background-color: #ffffffc4;
+    border-bottom-right-radius: 30px;
+}
+.confirmCard .button div#no{
+    height: 100%;
+    border-left: 1px solid rgb(179, 179, 179);
+
+    cursor: pointer;
+}

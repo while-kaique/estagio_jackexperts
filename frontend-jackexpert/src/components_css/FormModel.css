@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.login-form, .register-form{
+    min-width: 400px;
+    border-radius: 10px;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(168, 168, 168, 0.726);
+    padding: 20px;
+}
+.container h1{
+    font-weight: 400;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.container .form-error{
+    margin-top: 5px;
+    font-size: .8rem;
+    font-weight: 500;
+    color: rgba(216, 1, 1, 0.822);
+}
+
+.login-form-group, .register-form-group{
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.container input{
+    width: 100%;
+    height: 35px;
+    margin-top: 5px;
+
+    border-radius: 4px;
+    padding-left: 10px;
+    border: 1px solid rgb(173, 173, 173);
+
+    font-size: .8rem;
+    font-weight: 400;
+
+    transition: .2s;
+}
+.container input:focus{
+    box-shadow: 0px 0px 5px rgba(0, 204, 204, 0.685);
+    background-color: rgba(224, 255, 255, 0.384);
+
+    outline: none;
+
+}
+.container label{
+    font-weight: 500;
+}
+
+.container a {
+    text-decoration: none;
+    color: black;
+    font-size: .8rem;
+}
+.container a p{
+    font-weight: 500;
+    margin: 5px 0px 20px;
+}
+
+.container .button {
+    width: 100%;
+    height: 35px;
+    border-radius: 8px;
+
+    border: 1px solid rgba(175, 175, 175, 0.281);
+    background-image: linear-gradient(to right, #9C2CF3, #3A49F9);
+    color: white;
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.678);
+    cursor: pointer;
+}
+.container .button:focus{
+    background: auto;
+    outline: none;
+}

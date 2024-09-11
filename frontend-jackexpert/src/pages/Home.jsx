@@ -1,5 +1,5 @@
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import '../pages_css/Home.css'
 import CardScroll from '../sub_elements/CardScroll';
 import { CgMathMinus } from "react-icons/cg";
@@ -7,21 +7,6 @@ import FormModel from '../components/FormModel';
 
 
 const Home = () => {
-
-  const [users, setUsers] = useState([{}])
-
-  useEffect(()=>{
-    fetch('http://localhost:8800',{
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'}
-    })
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data)
-      setUsers(data)
-      return
-    })
-  }, [])
 
   const [showCards, setShowCards] = useState(false)
   const taskCategories = useRef([])

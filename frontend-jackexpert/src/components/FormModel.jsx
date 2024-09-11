@@ -5,34 +5,11 @@ import axios from 'axios'
 
 import '../components_css/FormModel.css'
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const FormModel = ({isRegister, isLogin}) => {
     
-
     const navigate = useNavigate()
-    const [msg, setMsg] = useState(null)
-
-    useEffect(()=>{
-        console.log('entrou no useEffect do msg')
-        setTimeout(() => {
-            setMsg(null)
-        }, 1000);
-    }, [msg])
     
-
-    const handleAuth = () => {
-        console.log('passou')
-        console.log(localStorage.getItem("token"))
-        axios.get("http://localhost:8800/checkauth", {
-            headers: {
-                'acess-token' : localStorage.getItem("token")
-            }
-        })
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err))
-    }
-
     const handleClickLogin = (values) => {
         axios.post("http://localhost:8800/login", {
             email: values.email,
@@ -41,6 +18,7 @@ const FormModel = ({isRegister, isLogin}) => {
         .then((res) => {
             if (res.data.login){
                 localStorage.setItem("token", res.data.token)
+                navigate('/')
             }
         })
         .catch(err => console.log(err))
@@ -109,7 +87,6 @@ const FormModel = ({isRegister, isLogin}) => {
                     <ErrorMessage component="span" name="password" className="form-error"/>
                 </div>
                 <Link to={'/register'}><p>Não possui conta? Clique para se registrar</p></Link>
-                <button style={{width: '100px', height: '40px'}} onClick={handleAuth}></button>
                 <button type="submit" className="button">Login</button>
             </Form>
         </Formik>

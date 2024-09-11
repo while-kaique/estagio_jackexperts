@@ -14,7 +14,8 @@ const verifyJwt = (req, res, next) => {
     }
     const secret = process.env.SECRET
     jwt.verify(token, secret, (err, decoded) => {
-        if (err) {return json.send({msg: "Não autenticado"})}
+        console.log('chegou no verify')
+        if (err) {return res.send({msg: "Não autenticado"})}
         req.userId = decoded.id;
         console.log('verificou')
         next()
@@ -31,11 +32,13 @@ const loginUser = (req, res) => {
                     const secret = process.env.SECRET
                     console.log(result)
                     const token = jwt.sign(
-                        {id: result[0].id_users},
+                        {
+                            id: result[0].id_users
+                        },
                         secret,
-                        { expiresIn: 300}
+                        { expiresIn: 300}   
                     )
-                    res.send({msg: "Usuário logado com sucesso!", token, login: true})}
+                    res.send({msg: "Usuário logado com sucesso!", token, login: true, user: {name: result[0].name}})}
                 else {res.send({msg: "A senha está incorreta."})}
             })
         } else {

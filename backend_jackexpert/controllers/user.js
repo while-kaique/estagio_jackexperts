@@ -7,22 +7,35 @@ import dotenv from 'dotenv'
 dotenv.config()
 const saltRound = 10
 
+const verifyJwt = (req, res, next) => {
+    const token = req.headers["acess-token"];
+    if (!token) {
+        return res.json({msg: "Token não identificado."})
+    }
+    const secret = process.env.SECRET
+    jwt.verify(token, secret, (err, decoded) => {
+        if (err) {return json.send({msg: "Não autenticado"})}
+        req.userId = decoded.id;
+        console.log('verificou')
+        next()
+    })
+}
+
 const loginUser = (req, res) => {
     const {email, password} = req.body
     db.query("SELECT * FROM taskmaneger_db.users WHERE email = ?", [email], (err, result) => {
         if (err) return res.json(err)
         if (result.length > 0) {
-            bcrypt.compare(password, result[0].password, (err, result)=>{
-                if (result) {
+            bcrypt.compare(password, result[0].password, (err, cryptResult)=>{
+                if (cryptResult) {
                     const secret = process.env.SECRET
-
+                    console.log(result)
                     const token = jwt.sign(
-                        {id: user.id},
+                        {id: result[0].id_users},
                         secret,
-                        { expiresIn: '1h'}
+                        { expiresIn: 300}
                     )
-                    res.send({msg: "Usuário logado com sucesso!", token, return: true
-                    })}
+                    res.send({msg: "Usuário logado com sucesso!", token, login: true})}
                 else {res.send({msg: "A senha está incorreta."})}
             })
         } else {
@@ -51,7 +64,7 @@ const registerUser = (req, res) => {
                     if (err) {
                         return res.send(err)
                     }
-                    return res.send({msg: "Usuário cadastrado com sucesso!", return: true})
+                    return res.send({msg: "Usuário cadastrado com sucesso!", login: true})
                 })
             })
         } else {
@@ -60,4 +73,4 @@ const registerUser = (req, res) => {
     })
 }
 
-export {loginUser, registerUser}
+export {loginUser, registerUser, verifyJwt}

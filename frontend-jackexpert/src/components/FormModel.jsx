@@ -4,11 +4,13 @@ import * as yup from "yup";
 import axios from 'axios'
 
 import '../components_css/FormModel.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const FormModel = ({isRegister, isLogin}) => {
+    
 
+    const navigate = useNavigate()
     const [msg, setMsg] = useState(null)
 
     useEffect(()=>{
@@ -19,11 +21,29 @@ const FormModel = ({isRegister, isLogin}) => {
     }, [msg])
     
 
+    const handleAuth = () => {
+        console.log('passou')
+        console.log(localStorage.getItem("token"))
+        axios.get("http://localhost:8800/checkauth", {
+            headers: {
+                'acess-token' : localStorage.getItem("token")
+            }
+        })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+    }
+
     const handleClickLogin = (values) => {
         axios.post("http://localhost:8800/login", {
             email: values.email,
             password: values.password
-        }).then(res => alert(res.data.msg)).catch(err => console.log(err))
+        })
+        .then((res) => {
+            if (res.data.login){
+                localStorage.setItem("token", res.data.token)
+            }
+        })
+        .catch(err => console.log(err))
     }
     const handleClickRegister = (values) => {
         axios.post("http://localhost:8800/register", {
@@ -31,7 +51,11 @@ const FormModel = ({isRegister, isLogin}) => {
             email: values.email,
             password: values.password,
             confirmPassword: values.confirmPassword
-        }).then(res => alert(res.data.msg)).catch(err => console.log(err))
+        })
+        .then((res) => {
+            alert(res.data.msg)
+        })
+        .catch(err => console.log(err))
     }
     const validationLogin = yup.object().shape({
         email: yup
@@ -85,6 +109,7 @@ const FormModel = ({isRegister, isLogin}) => {
                     <ErrorMessage component="span" name="password" className="form-error"/>
                 </div>
                 <Link to={'/register'}><p>Não possui conta? Clique para se registrar</p></Link>
+                <button style={{width: '100px', height: '40px'}} onClick={handleAuth}></button>
                 <button type="submit" className="button">Login</button>
             </Form>
         </Formik>
@@ -123,6 +148,7 @@ const FormModel = ({isRegister, isLogin}) => {
                     </div>
                     <Link to={'/login'}><p>Já possui conta? Clique para se fazer login</p></Link>
                     <button type="submit" className="button">Register</button>
+
                 </Form>
             </Formik>
         : null}

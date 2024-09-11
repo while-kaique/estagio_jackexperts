@@ -1,8 +1,11 @@
+import FormModel from "../components/FormModel"
 
 
 const Register = () => {
   return (
-    <div>Register</div>
+    <>
+      <FormModel isRegister={true}/>
+    </>
   )
 }
 

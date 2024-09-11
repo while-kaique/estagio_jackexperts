@@ -1,12 +1,48 @@
+
+
 import { db } from '../db.js'
-const getUsers = (_, res) => {
-    console.log('passou aqui')
-    const q = "SELECT * FROM taskmaneger_db.users"
+import bcrypt from 'bcrypt'
 
-    db.query(q, (err, data) => {
+const saltRound = 10
+
+const loginUser = (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    db.query("SELECT * FROM taskmaneger_db.users WHERE email = ?", [email], (err, result) => {
         if (err) return res.json(err)
-
-            return res.status(200).json(data)
+        if (result.length > 0) {
+            bcrypt.compare(password, result[0].password, (err, result)=>{
+                if (result) {res.send({msg: "Usuário logado com sucesso!", return: true})}
+                else {res.send({msg: "A senha está incorreta."})}
+            })
+        } else {
+            res.send({msg: 'Usuário não encontrado'})
+        }
     })
 }
-export default getUsers
+const registerUser = (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    if (!name || !email || !password){res.status(422).send({msg: 'Insira todas as informações para se cadastrar!'})}
+    const dateToday = new Date().toISOString().split('T')[0]
+    db.query("SELECT * FROM taskmaneger_db.users WHERE email = ?", [email], (err, result)=>{
+        if(err){    
+            return res.send(err)
+        }
+        if (result.length == 0){
+            bcrypt.hash(password, saltRound, (err, hash) => {
+                db.query(`INSERT INTO taskmaneger_db.users (name, email, password, date) VALUES (?, ?, ?, ?)`,[name, email, hash, dateToday], (err, result) => {
+                    if (err) {
+                        return res.send(err)
+                    }
+                    return res.send({msg: "Usuário cadastrado com sucesso!", return: true})
+                })
+            })
+        } else {
+            return res.send({msg: 'Email já cadastrado.'})
+        }
+    })
+}
+
+export {loginUser, registerUser}

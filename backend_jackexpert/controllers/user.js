@@ -21,15 +21,17 @@ const loginUser = (req, res) => {
     })
 }
 const registerUser = (req, res) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-    if (!name || !email || !password){res.status(422).send({msg: 'Insira todas as informações para se cadastrar!'})}
+    const { name, email, password, confirmPassword } = req.body
     const dateToday = new Date().toISOString().split('T')[0]
+    if (!name || !email || !password || !confirmPassword || (password !== confirmPassword)){
+        return res.status(422).send({msg: 'Insira todas as informações para se cadastrar!'})
+    }
+    
     db.query("SELECT * FROM taskmaneger_db.users WHERE email = ?", [email], (err, result)=>{
         if(err){    
             return res.send(err)
         }
+
         if (result.length == 0){
             bcrypt.hash(password, saltRound, (err, hash) => {
                 db.query(`INSERT INTO taskmaneger_db.users (name, email, password, date) VALUES (?, ?, ?, ?)`,[name, email, hash, dateToday], (err, result) => {

@@ -19,7 +19,7 @@ function generateRefreshToken(user) {
     return jwt.sign(user, process.env.REFRESH_SECRET, { expiresIn: '1d' });
 };
 const refreshToken = (req, res) => {
-    if (!req.cookiesrefreshToken) return res.sendStatus(401).json({msg: 'Não tem o refreshToken, amigo'});
+    if (!req.cookiesrefreshToken) return res.status(401).json({msg: 'Não tem o refreshToken, amigo'});
     const refreshToken = req.cookies.refreshToken; // Obtém o refresh token dos cookies
 
 

@@ -1,8 +1,12 @@
 
 import express from 'express'
-import {loginUser, registerUser, jwtMiddleware} from '../controllers/user.js'  
+import {loginUser, registerUser, jwtMiddleware, refreshToken} from '../controllers/user.js'  
 
 const router = express.Router()
+
+// TOKEN ROUTES
+
+router.post('/token', refreshToken)
 
 // PUBLIC ROUTES
 

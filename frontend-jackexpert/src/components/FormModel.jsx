@@ -19,10 +19,11 @@ const FormModel = ({isRegister, isLogin}) => {
         .then((res) => {
             if (res.data.login){
                 localStorage.setItem("jwtToken", res.data.token)
+                alert(res.data.msg)
                 navigate('/')
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data.msg))
     }
     const handleClickRegister = (values) => {
         axios.post("http://localhost:8800/register", {
@@ -32,10 +33,14 @@ const FormModel = ({isRegister, isLogin}) => {
             confirmPassword: values.confirmPassword
         })
         .then((res) => {
-            alert(res.data.msg)
+            if (res.data.login){
+                localStorage.setItem("jwtToken", res.data.token)
+                alert(res.data.msg)
+                navigate('/')
+            }
         })
-        .catch(err => console.log(err))
-    }
+        .catch(err => console.log(err.response.data.msg))
+    }   
     const validationLogin = yup.object().shape({
         email: yup
         .string()

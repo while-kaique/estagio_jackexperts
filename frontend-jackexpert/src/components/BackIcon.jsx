@@ -9,7 +9,7 @@ const BackArrow = () => {
   const navigate = useNavigate()
 
   const goBack = () => {
-    navigate(-1)
+    navigate('/')
   }
 
   return (

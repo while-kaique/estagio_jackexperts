@@ -2,13 +2,16 @@
 import { Outlet } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
+import AuthWrappler from './AuthWrappler.jsx'
 
 function App() {
 
   return (
     <>
-      <Header/>
-      <Outlet/>
+      <AuthWrappler>
+        <Header/>
+        <Outlet/>
+      </AuthWrappler>
     </>
   ) 
 }

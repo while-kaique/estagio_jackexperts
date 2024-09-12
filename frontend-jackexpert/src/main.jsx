@@ -13,6 +13,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import LowerHeader from './components/LowerHeader.jsx'
+import NullElement from './NullElement.jsx'
 
 const router = createBrowserRouter([
   {
@@ -41,14 +42,17 @@ const router = createBrowserRouter([
       }
     ]
   },
-  { 
-    path: "projects/:projectId/tasks/:taskId",
-    element: <Task/>
-  },
   {
-    path: 'task',
-    element: <Task/>
-  }
+    element: <NullElement/>,
+    errorElement: <ErrorPage/>,
+    children: [
+      {
+        path: 'task',
+        element: <Task/>
+      }
+    ]
+  },
+
 ]);
 
 createRoot(document.getElementById('root')).render(

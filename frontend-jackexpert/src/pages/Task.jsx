@@ -9,12 +9,9 @@ import '../pages_css/Task.css'
 
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { FiEdit3 } from "react-icons/fi";
+import JWTRecuse from './JWTRecuse.jsx'
 
 const Task = () => {
-
-  const goBack = () => {
-    navigate(-1)
-  }
 
   const [ userId, setUserId ] = useState(null)
 
@@ -30,16 +27,19 @@ const Task = () => {
       })
       .then((res) => {
           setUserId(res.data.user.id)
+          alert('aqui 1')
       })
       .catch((err) =>{
+        console.log(err)
         setUserId(err.response.data.user.id)
+        alert('aqui 2')
       })
     }), [])
   
 
   const navigate = useNavigate()
 
-  const init_task = {title: 'Fazer cocô', startTime: '07/09/2024', endTime: '07/09/2024', description: 'Eu preciso MUITO cortar o rabo do macaco.'}
+  const init_task = {title: 'Fazer cocô', startTime: '07/09/2024', description: 'Eu preciso MUITO cortar o rabo do macaco.'}
   const [task] = useState(init_task)
   const [confirmScreen, setConfirmScreen] = useState(false)
   // const { taskId, projectId } = useParams()
@@ -49,7 +49,7 @@ const Task = () => {
   }
   const handleYes = () =>{
     setConfirmScreen(false)
-    navigate(-1)
+    navigate('/')
   }
   const handleNo = ()=>{
     setConfirmScreen(false)
@@ -95,11 +95,7 @@ const Task = () => {
             </div>
           </section>
 
-        </div> : 
-        <div>
-          <div className='denied_backLink' onClick={goBack}><FaArrowLeftLong className="denied_backicon"/></div>
-          <h1 className='acess-denied'>Ops... Você não é autorizado a ver as páginas de seus projetos sem se logar anteriormente</h1>
-        </div>
+        </div> : <JWTRecuse/>
       }
     </>
   )

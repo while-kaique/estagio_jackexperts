@@ -135,14 +135,13 @@
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-
+    color: #2E3A59;
     font-size: 5rem;
 }
 
 ul.tags li{
     margin: 20px;
     font-weight: 500;
-    color: #717e9c;
     list-style-type: none;
 
 }
@@ -153,4 +152,5 @@ ul.tags li a:hover{
 ul.tags li a{
     text-decoration: none;
     cursor: pointer;
+    color: #2E3A59;
 }

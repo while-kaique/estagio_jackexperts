@@ -3,13 +3,34 @@
 import { db } from '../db.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
+import dotenv from 'dotenv'   
+import moment from 'moment'
 dotenv.config()
 
 const saltRound = 10
 
 // JWT ACTIONS
 // JWT ACTIONS
+
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.SECRET, { expiresIn: '5m' });
+};
+function generateRefreshToken(user) {
+    return jwt.sign(user, process.env.REFRESH_SECRET, { expiresIn: '1d' });
+};
+const refreshToken = (req, res) => {
+    if (!req.cookiesrefreshToken) return res.sendStatus(401).json({msg: 'Não tem o refreshToken, amigo'});
+    const refreshToken = req.cookies.refreshToken; // Obtém o refresh token dos cookies
+
+
+    jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+
+        const token = generateAccessToken({ id: user.id, email: user.email });
+        res.json({ token });
+    });
+};
+
 
 function jwtMiddleware(req, res, next) {
     const token = req.headers['authorization'];
@@ -42,17 +63,17 @@ const loginUser = (req, res) => {
         if (result.length > 0) {
             bcrypt.compare(password, result[0].password, (err, cryptResult)=>{
                 if (cryptResult) {
-                    const secret = process.env.SECRET
-                    console.log(result)
-                    const token = jwt.sign(
-                        {
-                            id: result[0].id_users
-                        },
-                        secret,
-                        { expiresIn: 300}   
-                    )
+                    const { email, id } = result[0]
+                    const user = {id, email}
+
+                    const token = generateAccessToken(user)
+                    const refreshToken = generateRefreshToken(user)
+
+                    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });
                     res.send({msg: "Usuário logado com sucesso!", token, login: true, user: {name: result[0].name}})}
-                else {res.send({msg: "A senha está incorreta."})}
+                else {
+                    res.send({msg: "A senha está incorreta."})
+                }
             })
         } else {
             res.send({msg: 'Usuário não encontrado'})
@@ -61,7 +82,7 @@ const loginUser = (req, res) => {
 }
 const registerUser = (req, res) => {
     const { name, email, password, confirmPassword } = req.body
-    const dateToday = new Date().toISOString().split('T')[0]
+    const dateToday = moment().format('YYYY-MM-DD')
     if (!name || !email || !password || !confirmPassword){
         return res.status(422).send({msg: 'Insira todas as informações para se cadastrar.'})
     }
@@ -80,7 +101,14 @@ const registerUser = (req, res) => {
                     if (err) {
                         return res.send(err)
                     }
-                    return res.send({msg: "Usuário cadastrado com sucesso!", login: true})
+                    const newId = result
+                    const user = {email, newId}
+
+                    const token = generateAccessToken(user)
+                    const refreshToken = generateRefreshToken(user)
+
+                    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });
+                    return res.send({msg: "Usuário logado com sucesso!", token, login: true, name})
                 })
             })
         } else {
@@ -89,4 +117,4 @@ const registerUser = (req, res) => {
     })
 }
 
-export {loginUser, registerUser, jwtMiddleware}
+export {loginUser, registerUser, jwtMiddleware, refreshToken}

@@ -5,22 +5,35 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config()
+
 const saltRound = 10
 
-const verifyJwt = (req, res, next) => {
-    const token = req.headers["acess-token"];
+// JWT ACTIONS
+// JWT ACTIONS
+
+function jwtMiddleware(req, res, next) {
+    const token = req.headers['authorization'];
+    const tokenWithoutBearer = token.split(' ')[1]; // Extrai o token (assumindo o formato: "Bearer token")
+    
     if (!token) {
-        return res.json({msg: "Token não identificado."})
+      return res.status(403).json({ message: 'Token não fornecido.' });
     }
-    const secret = process.env.SECRET
-    jwt.verify(token, secret, (err, decoded) => {
-        console.log('chegou no verify')
-        if (err) {return res.send({msg: "Não autenticado"})}
-        req.userId = decoded.id;
-        console.log('verificou')
-        next()
-    })
+    
+    jwt.verify(tokenWithoutBearer, process.env.SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Token inválido ou expirado.', user: {id: null}});
+      }
+  
+      // Armazena as informações do usuário decodificado para uso posterior
+      console.log(decoded)
+      req.user = decoded;
+      next();
+    });
 }
+
+
+// LOGIN/REGISTER ACTIONS
+// LOGIN/REGISTER ACTIONS
 
 const loginUser = (req, res) => {
     const {email, password} = req.body
@@ -76,4 +89,4 @@ const registerUser = (req, res) => {
     })
 }
 
-export {loginUser, registerUser, verifyJwt}
+export {loginUser, registerUser, jwtMiddleware}

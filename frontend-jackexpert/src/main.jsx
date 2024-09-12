@@ -44,6 +44,10 @@ const router = createBrowserRouter([
   { 
     path: "projects/:projectId/tasks/:taskId",
     element: <Task/>
+  },
+  {
+    path: 'task',
+    element: <Task/>
   }
 ]);
 

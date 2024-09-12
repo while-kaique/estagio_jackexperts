@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IoIosClose } from "react-icons/io";
 
 
 const Menu = () => {
@@ -23,7 +24,7 @@ const Menu = () => {
                 setMenuClass('close')
                 setTimeout(() => {
                 setCanMenu(false)
-                }, 400);}}></div>
+                }, 400);}}><IoIosClose className="menu_close_icon"/></div>
             </section>
 
             <ul className="tags">

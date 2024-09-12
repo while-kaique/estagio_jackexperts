@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const FormModel = ({isRegister, isLogin}) => {
     
+    
     const navigate = useNavigate()
     
     const handleClickLogin = (values) => {
@@ -17,7 +18,7 @@ const FormModel = ({isRegister, isLogin}) => {
         })
         .then((res) => {
             if (res.data.login){
-                localStorage.setItem("token", res.data.token)
+                localStorage.setItem("jwtToken", res.data.token)
                 navigate('/')
             }
         })

@@ -1,14 +1,19 @@
 
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 import '../components_css/BackIcon.css'
 
 const BackArrow = () => {
+
+  const navigate = useNavigate()
+
+  const goBack = () => {
+    navigate(-1)
+  }
+
   return (
-    <Link to={'/'}>
-      <div className="backIcon"><FaArrowLeftLong/></div>
-    </Link>
+    <div className="backIcon" onClick={goBack}><FaArrowLeftLong/></div>
   )
 }
 

@@ -1,4 +1,4 @@
-import FormModel from "../components/FormModel"
+import FormModel from "../components/FormModel.jsx"
 
 const Login = () => {
   return (

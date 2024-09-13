@@ -15,13 +15,16 @@ const FormModel = ({isRegister, isLogin}) => {
         axios.post("http://localhost:8800/login", {
             email: values.email,
             password: values.password
-        })
+        }, {withCredentials: true})
         .then((res) => {
+            console.log(res.data.msg)
             if (res.data.login){
                 localStorage.setItem("jwtToken", res.data.token)
                 alert(res.data.msg)
                 navigate('/')
+                return
             }
+            alert(res.data.msg)
         })
         .catch(err => console.log(err.response.data.msg))
     }

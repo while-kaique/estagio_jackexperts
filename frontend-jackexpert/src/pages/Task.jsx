@@ -2,42 +2,22 @@
 // import { useParams } from "react-router-dom"
 
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-
-import '../pages_css/Task.css'
+import { useState } from 'react'
 
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { FiEdit3 } from "react-icons/fi";
+
+
+import '../pages_css/Task.css'
 import JWTRecuse from './JWTRecuse.jsx'
 
 const Task = () => {
 
-  const [ userId, setUserId ] = useState(null)
-
-  useEffect((() => {
-      const token = localStorage.getItem('jwtToken');
-      console.log(token)
-      
-      axios.get("http://localhost:8800/task",{
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      .then((res) => {
-          setUserId(res.data.user.id)
-          alert('aqui 1')
-      })
-      .catch((err) =>{
-        console.log(err)
-        setUserId(err.response.data.user.id)
-        alert('aqui 2')
-      })
-    }), [])
-  
-
   const navigate = useNavigate()
+
+  function goBack() {
+    navigate(-1)
+  }
 
   const init_task = {title: 'Fazer cocô', startTime: '07/09/2024', description: 'Eu preciso MUITO cortar o rabo do macaco.'}
   const [task] = useState(init_task)
@@ -57,7 +37,7 @@ const Task = () => {
 
   return (  
     <>
-      {userId ? 
+      {authData.id ? 
         <div className="task">
           
           {/* HEADER DO CARD */}
@@ -72,7 +52,7 @@ const Task = () => {
             </div>
           </div> : null}
           <section className="cardHeader">
-            <div className='task_backLink' onClick={navigate(-1)}><FaArrowLeftLong className="task_backIcon"/></div>
+            <div className='task_backLink' onClick={goBack}><FaArrowLeftLong className="task_backIcon"/></div>
             <div className="init">
               <h1 id='init_title'>Sua Tarefa</h1>
               <div className="save" onClick={()=>{handleSave()}}><FiEdit3/></div>

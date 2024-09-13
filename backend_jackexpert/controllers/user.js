@@ -7,10 +7,10 @@ import dotenv from 'dotenv'
 import moment from 'moment'
 dotenv.config()
 
-const saltRound = 10
 
 // JWT ACTIONS
 // JWT ACTIONS
+const saltRound = 10
 
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.SECRET, { expiresIn: '5m' });
@@ -18,37 +18,118 @@ function generateAccessToken(user) {
 function generateRefreshToken(user) {
     return jwt.sign(user, process.env.REFRESH_SECRET, { expiresIn: '1d' });
 };
-const refreshToken = (req, res) => {
-    if (!req.cookiesrefreshToken) return res.status(401).json({msg: 'Não tem o refreshToken, amigo'});
-    const refreshToken = req.cookies.refreshToken; // Obtém o refresh token dos cookies
-
-
-    jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-
-        const token = generateAccessToken({ id: user.id, email: user.email });
-        res.json({ token });
-    });
-};
 
 
 function jwtMiddleware(req, res, next) {
     const token = req.headers['authorization'];
     const tokenWithoutBearer = token.split(' ')[1]; // Extrai o token (assumindo o formato: "Bearer token")
-    
+
     if (!token) {
-      return res.status(403).json({ message: 'Token não fornecido.' });
+      return res.status(403).json({ msg: 'Token não fornecido.', token: false });
     }
-    
     jwt.verify(tokenWithoutBearer, process.env.SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({ message: 'Token inválido ou expirado.', user: {id: null}});
-      }
-  
-      // Armazena as informações do usuário decodificado para uso posterior
-      console.log(decoded)
-      req.user = decoded;
-      next();
+        if (err) {
+            if (!req.cookies.refreshToken) return res.status(401).json({msg: 'Token Inválido + nenhum Refresh Token encontrado'});
+
+            const refreshToken = req.cookies.refreshToken; // Obtém o refresh token dos cookies
+            jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, user) => {
+                if (err) return res.status(403).json({msg: 'Refresh Token existente é inválido'});
+
+                const token = generateAccessToken({ id: user.id, email: user.email });
+                return res.status(200).json({msg: "RefreshToken validado, novo Token disponível!", token });
+                
+            });
+        } else {
+            next()
+        }
+    });
+}
+
+// MIDDLEWARE MYSQL
+// MIDDLEWARE MYSQL
+
+const projectsMiddleware = (req, res, next) => {
+    db.query("SELECT * FROM taskmaneger_db.projects WHERE user_id = ?", [req.id], (err, result)=>{
+        if(err){    
+            console.log(err)
+        }     
+
+        if (result.length == 0){
+            req.projects = false
+            next();
+            return
+        }
+        req.projects = result
+        next();
+    })
+}
+const projectMiddleware = (req, res, next) => {
+    db.query("SELECT * FROM taskmaneger_db.projects WHERE id = ?", [decoded.id], (err, result)=>{
+        if(err){    
+            console.log(err)
+        }     
+
+        if (result.length == 0){
+            req.projects = false
+            next();
+            return
+        }
+        req.projects = result
+        next();
+    })
+}
+const cardsMiddleware = (req, res, next) => {
+    db.query("SELECT * FROM taskmaneger_db.projects WHERE user_id = ?", [decoded.id], (err, result)=>{
+        if(err){    
+            console.log(err)
+        }     
+
+        if (result.length == 0){
+            req.projects = false
+            next();
+            return
+        }
+        req.projects = result
+        next();
+    })
+}
+const homeMiddleware = (req, res, next) => {
+    
+    const token = req.headers['authorization'];
+    const tokenWithoutBearer = token.split(' ')[1]; // Extrai o token (assumindo o formato: "Bearer token")
+
+    if (!token) {
+        return res.status(403).json({ msg: 'Token não fornecido.', token: false });
+    }
+
+    jwt.verify(tokenWithoutBearer, process.env.SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({msg: 'Token Inválido'});
+        } else {
+            const user = decoded
+            db.query("SELECT name FROM taskmaneger_db.users WHERE id = ?", [user.id], (err, user_result)=> {
+                if(err){    
+                    return res.json(err)
+                }     
+                const name = user_result[0].name
+                db.query("SELECT * FROM taskmaneger_db.projects WHERE user_id = ?", [user.id], (err, projects_result)=>{
+                    
+                    if(err){    
+                        return res.json(err)
+                    }     
+                    
+                    if (projects_result.length == 0){
+                        req.projects = false
+                        req.name = name.split(' ', 1)[0]
+                        next()
+                        return 
+                    }
+                    req.projects = projects_result
+                    req.name = name
+                    next();
+                })
+            })
+        }
     });
 }
 
@@ -69,8 +150,8 @@ const loginUser = (req, res) => {
                     const token = generateAccessToken(user)
                     const refreshToken = generateRefreshToken(user)
 
-                    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });
-                    res.send({msg: "Usuário logado com sucesso!", token, login: true, user: {name: result[0].name}})}
+                    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 100, path: '/' });
+                    res.json({msg: "Usuário logado com sucesso!", token, login: true, user: {name: result[0].name}})}
                 else {
                     res.send({msg: "A senha está incorreta."})
                 }
@@ -108,7 +189,7 @@ const registerUser = (req, res) => {
                     const refreshToken = generateRefreshToken(user)
 
                     res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });
-                    return res.send({msg: "Usuário logado com sucesso!", token, login: true, name})
+                    return res.send({msg: "Usuário cadastrado com sucesso!", token, login: true, name})
                 })
             })
         } else {
@@ -117,4 +198,4 @@ const registerUser = (req, res) => {
     })
 }
 
-export {loginUser, registerUser, jwtMiddleware, refreshToken}
+export {loginUser, registerUser, jwtMiddleware, projectsMiddleware, projectMiddleware, cardsMiddleware, homeMiddleware} 

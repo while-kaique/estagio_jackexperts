@@ -5,6 +5,7 @@ import Menu from "../sub_elements/Menu";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+
 const Header = () => {
 
   function getCurrentDimension() {

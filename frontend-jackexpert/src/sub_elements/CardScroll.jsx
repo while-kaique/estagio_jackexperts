@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './CardScroll.css'
 
 
-const CardScroll = ({handleShowCards, showCards}) => {
+const CardScroll = ({userProjects, handleShowCards, showCards}) => {
 
   const navigate = useNavigate()
 
@@ -140,6 +140,7 @@ const CardScroll = ({handleShowCards, showCards}) => {
 CardScroll.propTypes = {
     showCards: PropTypes.bool,
     handleShowCards: PropTypes.func,
+    userProjects: PropTypes.array,
 }
 
 export default CardScroll

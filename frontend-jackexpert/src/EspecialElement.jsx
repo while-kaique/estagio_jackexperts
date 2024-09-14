@@ -2,7 +2,7 @@
 import { Outlet } from 'react-router-dom'
 import AuthWrappler from './AuthWrappler'
 
-const NullElement = () => {
+const EspecialElement = () => {
   return (
     <AuthWrappler>
         <Outlet/>
@@ -10,4 +10,4 @@ const NullElement = () => {
   )
 }
 
-export default NullElement
+export default EspecialElement

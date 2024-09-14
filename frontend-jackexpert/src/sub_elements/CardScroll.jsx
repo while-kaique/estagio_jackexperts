@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 import './CardScroll.css'
 
 
-const CardScroll = ({userProjects, handleShowCards, showCards}) => {
-
+const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) => {
   const navigate = useNavigate()
 
   const cards = useRef([])
@@ -106,6 +105,8 @@ const CardScroll = ({userProjects, handleShowCards, showCards}) => {
           ref={(el) => cards.current[4] = el}
           onClick={(e)=> handleCardChange(4, e)}
         ></div>
+        { }
+        
         {!showCards ? <div className="card empty" onClick={()=>{handleShowCards()}}></div> : null}
 
       </div>
@@ -141,6 +142,7 @@ CardScroll.propTypes = {
     showCards: PropTypes.bool,
     handleShowCards: PropTypes.func,
     userProjects: PropTypes.array,
+    fiveProjects: PropTypes.array,
 }
 
 export default CardScroll

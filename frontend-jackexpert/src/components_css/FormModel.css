@@ -72,7 +72,7 @@
     border-radius: 8px;
 
     border: 1px solid rgba(175, 175, 175, 0.281);
-    background-image: linear-gradient(to right, #9C2CF3, #3A49F9);
+    background-image: linear-gradient(to left, #9C2CF3, #3A49F9);
     color: white;
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.678);
     cursor: pointer;
@@ -80,4 +80,97 @@
 .container .button:focus{
     background: auto;
     outline: none;
+}
+
+/* CREATE PROJECT */
+/* CREATE PROJECT */
+/* CREATE PROJECT */
+
+.createProject-form {
+    width: 80vw;
+    margin-bottom: 60px;
+}
+.createProject-form label {
+    color: #3f4de4cc;
+}
+.create-project-form-group.description label {
+    display: block;
+}
+.create-project-form-group.description textarea{
+    width: 80vw;
+
+    margin-top: 10px;
+    padding: 30px;
+    
+    border: 0;
+}
+.create-project-form-group .form-field {
+    font-weight: 500;
+  }
+.create-project-form-group.description textarea:focus{
+    outline: none;
+}
+
+.createProject-form input{
+    background: transparent;
+    border: 0;
+
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 0;
+}
+.createProject-form input:focus{
+    background-color: transparent;
+    box-shadow: none;
+    border: 0;
+}
+.createProject-form .create-project-form-group .field::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin-top: 5px;
+    background-image: linear-gradient(to right, #9C2CF3, #3A49F9);
+}
+
+/* CATEGORIAS */
+.createProject-form .create-project-form-group.category{
+    margin: 50px 0px;
+}
+.createProject-form .create-project-form-group.category::after{
+    width: 0px;
+}
+
+.category-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.create-project-form-group.category button{
+    width: 120px;
+    height: 50px;
+    border-radius: 50px;
+    border: 0;
+
+    margin: 150px;
+    
+    background-color: #E5EAFC;
+    color: #2E3A59;
+    margin: 5px;
+
+    cursor: pointer;
+}
+.category-buttons button.selected{
+    background-image: linear-gradient(to top, #9C2CF3, #3A49F9);
+    color: white;
+}
+.category-buttons button span{
+    
+    font-size: .8rem;
+    font-weight: 500;
+}
+/* CATEGORIAS */
+
+.create-project-form-group {
+    margin: 30px 0px;
 }

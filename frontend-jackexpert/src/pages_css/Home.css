@@ -6,6 +6,7 @@ section.initInfo {
     padding-top: 4px;
     font-size: 1.1rem;
     font-weight: 400;
+    width: 80%;
 
     color: rgba(46, 58, 89, 0.596)
     
@@ -13,11 +14,48 @@ section.initInfo {
 
 /* CATEGORIAS DE TAREFAS */
 /* CATEGORIAS DE TAREFAS */
-h1.main_tasks{
+h1.main_title{
     font-size: 1.8rem;
     margin-left: 10vw;
 }
+.no_projects h2 {
+    margin: 30px 0 20px;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #2E3A59;
+}
+.no_projects a {
+    text-align: center;
+    color: #2E3A59;
+}
+.home_addIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    width: 180px;
+    height: 55px;
+
+    border-radius: 30px;
+
+    margin: auto;
+    margin-bottom: 30px;
+    
+    background-image: linear-gradient(to right, #9C2CF3, #3A49F9);
+
+    cursor: pointer;
+}
+.home_addIcon p{
+    font-size: .8rem;
+    color: white;
+}
+.home_addIcon .home_icon{
+    width: 20%;
+    height: 100%;
+
+    color: white;
+
+}
 section.task_categ{
     display: flex;
     justify-content: center;

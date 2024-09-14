@@ -34,10 +34,11 @@ const Task = () => {
   const handleNo = ()=>{
     setConfirmScreen(false)
   }
+  const a = true
 
   return (  
     <>
-      {authData.id ? 
+      {a ? 
         <div className="task">
           
           {/* HEADER DO CARD */}
@@ -46,8 +47,8 @@ const Task = () => {
             <div className="confirmCard">
               <h1>Tem certeza que deseja salvar essas informações?</h1>
               <div className="button">
-                <div id='yes' onClick={()=>{handleYes()}}><p>Sim</p></div>
-                <div id='no'  onClick={()=>{handleNo()}}><p>Não</p></div>
+                <div id='yes' onClick={()=>{handleYes()}}><p>Sim, tenho certeza!</p></div>
+                <div id='no'  onClick={()=>{handleNo()}}><p>Cancelar</p></div>
               </div>
             </div>
           </div> : null}
@@ -55,7 +56,7 @@ const Task = () => {
             <div className='task_backLink' onClick={goBack}><FaArrowLeftLong className="task_backIcon"/></div>
             <div className="init">
               <h1 id='init_title'>Sua Tarefa</h1>
-              <div className="save" onClick={()=>{handleSave()}}><FiEdit3/></div>
+              <div className="save" onClick={()=>{handleSave()}}><FiEdit3 className='saveIcon'/></div>
               </div>
             <section className="title">
               <h1>Título</h1>

@@ -25,13 +25,16 @@ router.get('/home', homeMiddleware, (req, res) => {
     })
 })
 router.get('/projects', projectsMiddleware , (req, res) => {
-    return res.json({msg: "Token validado! Passando projetos...", projects: req.projects})
+    return res.json({msg: "Token validado! Passando vários projetos e seus cards inclusos...", projects: req.projects})
 })
 router.get('/projects/:projectId', projectMiddleware, (req, res) => {
-    return res.json({msg: "Token validado! Passando projeto específico...", project: req.project})
+    return res.json({msg: "Token validado! Passando um projeto específico e seus cards inclusos...", project: req.project})
 })
-router.get('/projects/:projectId/cards', cardsMiddleware, (req, res) => {
-    return res.json({msg: "Token validado! Passando cards de um projeto específico...", cards: req.cards})
+router.get('/cards', cardsMiddleware , (req, res) => {
+    return res.json({msg: "Token validado! Passando vários cards...", cards: req.cards})
+})
+router.get('/cards/:cardId', cardsMiddleware, (req, res) => {
+    return res.json({msg: "Token validado! Passando um card específico...", card: req.card})
 })
 
 

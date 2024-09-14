@@ -13,7 +13,8 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import LowerHeader from './components/LowerHeader.jsx'
-import NullElement from './NullElement.jsx'
+import EspecialElement from './EspecialElement.jsx'
+import CreateProject from './pages/CreateProject.jsx'
 
 const router = createBrowserRouter([
   {
@@ -39,11 +40,15 @@ const router = createBrowserRouter([
         path: 'register',
         element: <Register/>
 
+      },
+      {
+        path: 'createProject',
+        element: <CreateProject/>
       }
     ]
   },
   {
-    element: <NullElement/>,
+    element: <EspecialElement/>,
     errorElement: <ErrorPage/>,
     children: [
       {

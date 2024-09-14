@@ -1,10 +1,15 @@
 
 import PropTypes from 'prop-types'
 import axios from 'axios';
+import { useState } from 'react';
+import Loading from './components/Loading';
+import Header from './components/Header.jsx'
 
 // Cria o contexto
 
 function AuthWrapper({ children }) {
+
+  const [isAuthenticating, setIsAuthenticating] = useState(true)
 
   const verifyToken = () => {
     console.log('Verificando Token...')
@@ -23,16 +28,19 @@ function AuthWrapper({ children }) {
       if (res.data.token){
         localStorage.setItem('jwtToken', res.data.token)
       }
+      setIsAuthenticating(false)
     })
     .catch((err) => {
       console.log(err.response.data.msg);
-    });
+      setIsAuthenticating(false)
+    }); 
   };
   verifyToken()
 
   return (
       <>
-        {children}
+        {isAuthenticating ? <Header/> : children}
+        
       </>
   );
 }

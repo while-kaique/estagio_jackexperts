@@ -9,7 +9,6 @@ import { FaBriefcase, FaHeart, FaHome, FaSchool, FaMusic, FaUsers, FaEllipsisH }
 
 const FormModel = ({isRegister, isLogin, isCreatingProject, isCreatingCard}) => {
 
-  
     const navigate = useNavigate()
 
     const categories = [
@@ -68,7 +67,14 @@ const FormModel = ({isRegister, isLogin, isCreatingProject, isCreatingCard}) => 
             console.log(res.data)
             alert('Projeto criado com sucesso!')
         })
-        .catch(err => console.log(err.response.data.msg))
+        .catch((err) => {
+            console.log(err.response.data.msg)
+            if (err.response.data.token === false) {
+                console.log('opa')
+                alert('Usuário não autenticado.')
+                navigate('/login')
+            }
+        })
     }
 
     const validationLogin = yup.object().shape({
@@ -121,29 +127,29 @@ const FormModel = ({isRegister, isLogin, isCreatingProject, isCreatingCard}) => 
         {/* PÁGINA DE LOGIN */}
         {/* PÁGINA DE LOGIN */}
         {isLogin ? 
-        <Formik
-        initialValues={{email:'', password:''}}
-        onSubmit={handleClickLogin}
-        validationSchema={validationLogin}>
-            <Form className="login-form">
-                <h1>Login</h1>
-                <div className="login-form-group">
-                    <label htmlFor="email">Email</label>
-                    <Field id="email" name="email" className="form-field" placeholder="Insira seu email" />
+            <Formik
+            initialValues={{email:'', password:''}}
+            onSubmit={handleClickLogin}
+            validationSchema={validationLogin}>
+                <Form className="login-form">
+                    <h1>Login</h1>
+                    <div className="login-form-group">
+                        <label htmlFor="email">Email</label>
+                        <Field id="email" name="email" className="form-field" placeholder="Insira seu email" />
 
-                    <ErrorMessage component="span" name="email" className="form-error"/>
-                </div>
-                <div className="login-form-group">
-                    
-                    <label htmlFor="password">Senha</label>
-                    <Field id="password" name="password" type="password" className="form-field" placeholder="Insira sua senha" />
+                        <ErrorMessage component="span" name="email" className="form-error"/>
+                    </div>
+                    <div className="login-form-group">
+                        
+                        <label htmlFor="password">Senha</label>
+                        <Field id="password" name="password" type="password" className="form-field" placeholder="Insira sua senha" />
 
-                    <ErrorMessage component="span" name="password" className="form-error"/>
-                </div>
-                <Link to={'/register'}><p>Não possui conta? Clique para se registrar</p></Link>
-                <button type="submit" className="button">Login</button>
-            </Form>
-        </Formik>
+                        <ErrorMessage component="span" name="password" className="form-error"/>
+                    </div>
+                    <Link to={'/register'}><p>Não possui conta? Clique para se registrar</p></Link>
+                    <button type="submit" className="button">Login</button>
+                </Form>
+            </Formik>
         : null}
 
         {/* PÁGINA DE REGISTRO */}

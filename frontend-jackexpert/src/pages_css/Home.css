@@ -90,6 +90,7 @@ section.task_categ{
 .task_categ div.active{
     background-color: white;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.082);
+    font-weight: 600;
     transition: .3s;
 }
 

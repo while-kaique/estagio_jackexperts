@@ -64,6 +64,7 @@ const projectsMiddleware = (req, res, next) => {
     })
 }
 const projectMiddleware = (req, res, next) => {
+    const projectId = req.params.id
     db.query("SELECT * FROM taskmaneger_db.projects WHERE id = ?", [decoded.id], (err, result)=>{
         if(err){    
             console.log(err)
@@ -79,23 +80,17 @@ const projectMiddleware = (req, res, next) => {
     })
 }
 const createProjectMiddleware = (req, res, next) => {
-    console.log('passo 1')
 
     const token = req.body.token;
     if (!token) {
-        console.log('passo 2')
         return res.status(403).json({ msg: 'Token não fornecido.', token: false });
     }
-    console.log('passo 3')
 
 
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
-        console.log('passo 4')
         if (err) {
-            console.log('passo 5')
             return res.status(401).json({msg: 'Token Inválido', token: false});
         } else {
-            console.log('verify true')
             const user = decoded
             
             const dateToday = moment().format('YYYY-MM-DD')
@@ -151,17 +146,18 @@ const homeMiddleware = (req, res, next) => {
                 db.query("SELECT * FROM taskmaneger_db.projects WHERE user_id = ?", [user.id], (err, projects_result)=>{
                     
                     if(err){    
-                        return res.json({msg: 'Projeto não existe', token: false})
+                        return res.json({msg: 'Não foi possível receber os projetos do usuário.', token: false})
                     }     
                     
                     if (projects_result.length == 0){
                         req.projects = false
+                        console.log(name.split(' ', 1)[0])
                         req.name = name.split(' ', 1)[0]
                         next()
                         return 
                     }
                     req.projects = projects_result
-                    req.name = name
+                    req.name = name.split(' ', 1)[0]
                     next();
                 })
             })

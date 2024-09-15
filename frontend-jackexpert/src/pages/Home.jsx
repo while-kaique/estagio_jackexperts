@@ -29,21 +29,15 @@ const Home = () => {
   const taskCategories = useRef([])
   
   const get5Projects = (projects) => {
+    const fiveProjects = []
     for (let index = 0; index < 5; index++) {
-      console.log('index: ', index)
       if (projects[index]) {
-        setFiveProjects((prev)=>{
-          const newProject = prev
-          newProject.push(projects[index])
-          return newProject
-        })
+        fiveProjects.push({project: projects[index]})
+      } else {
+        fiveProjects.push({project: false})
       }
-      setFiveProjects((prev)=>{
-        const newProject = prev
-        newProject.push(false)
-        return newProject
-      })
     }
+    setFiveProjects(fiveProjects)
   }
 
 
@@ -83,7 +77,6 @@ const Home = () => {
     e.target.classList.add('active')
   }
 
-  console.log(isAuth)
   return (
     <>
       {isLoading ? 

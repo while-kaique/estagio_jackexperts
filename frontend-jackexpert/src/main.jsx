@@ -15,6 +15,7 @@ import Register from './pages/Register.jsx'
 import LowerHeader from './components/LowerHeader.jsx'
 import EspecialElement from './EspecialElement.jsx'
 import CreateProject from './pages/CreateProject.jsx'
+import Project from './pages/pROJECT.JSX'
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,12 @@ const router = createBrowserRouter([
       {
         path: 'task',
         element: <Task/>
-      }
+      },
+      {
+        path: 'projects/:id',
+        element: <Project/>
+      },
+      
     ]
   },
 

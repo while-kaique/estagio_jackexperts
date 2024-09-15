@@ -7,6 +7,21 @@ import './CardScroll.css'
 
 const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) => {
   const navigate = useNavigate()
+  console.log(userProjects)
+  const months = {
+    '01': 'Janeiro',
+    '02': 'Fevereiro',
+    '03': 'Março',
+    '04': 'Abril',
+    '05': 'Maio',
+    '06': 'Junho',
+    '07': 'Julho',
+    '08': 'Agosto',
+    '09': 'Setembro',
+    '10': 'Outubro',
+    '11': 'Novembro',
+    '12': 'Dezembro'
+  };
 
   const cards = useRef([])
   const cardsWrappler = useRef(null)
@@ -40,10 +55,11 @@ const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) =>
     }
   },[showCards])
 
-  const handleCardChange = (index, card) => {
-    if (card){
-      if (card.target.className.indexOf('active') !== -1) {
-        navigate(`/projects/0/tasks/${card.target.id}`)
+  const handleCardChange = (index, card, id) => {
+    console.log(id)
+    if (card.currentTarget){
+      if (card.currentTarget.className.indexOf('active') !== -1) {
+        navigate(`/projects/${id}`)
       }
     }
     setCurrentIndex(index)
@@ -77,35 +93,81 @@ const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) =>
     <section className="containerPjCards">
       <div className={`pj_cards ${showCards ? 'show' : ''}`} ref={cardsWrappler}>
         <div className="card first active" 
-          id={0} 
+          id={0}
           ref={(el) => cards.current[0] = el}
-          onClick={(e)=> handleCardChange(0, e)}
-        ></div>
+          onClick={(e)=> handleCardChange(0, e, fiveProjects[0].project.id)}
+        >
+          {fiveProjects[0].project == false ? 
+            null :
+            <div className="projectCard">
+              <span className="project-categ"><h2>{fiveProjects[0].project.category}</h2></span>
+              <h1 className="project-title">{
+              fiveProjects[0].project.name
+              }</h1>
+              <h3 className="project-date">{`Dia ${fiveProjects[0].project.date.split('T')[0].split('-')[2]} de ${months[fiveProjects[0].project.date.split('T')[0].split('-')[1]]} de ${fiveProjects[0].project.date.split('T')[0].split('-')[0]}`}</h3>
+            </div>
+          }
+        </div>
 
         <div className="card next" 
           id={1} 
           ref={(el) => cards.current[1] = el}
-          onClick={(e)=> handleCardChange(1, e)}
-        ></div>
+          onClick={(e)=> handleCardChange(1, e, fiveProjects[1].project.id)}
+        >
+          {fiveProjects[1].project == false ? 
+            null :
+            <div className="projectCard">
+              <span className="project-categ"><h2>{fiveProjects[1].project.category}</h2></span>
+              <h1 className="project-title">{fiveProjects[1].project.name}</h1>
+              <h3 className="project-date">{`Dia ${fiveProjects[1].project.date.split('T')[0].split('-')[2]} de ${months[fiveProjects[0].project.date.split('T')[0].split('-')[1]]} de ${fiveProjects[0].project.date.split('T')[0].split('-')[0]}`}</h3>
+            </div> 
+          }
+          </div>
 
         <div className="card" 
           id={2} 
           ref={(el) => cards.current[2] = el}
-          onClick={(e)=> handleCardChange(2, e)}
-        ></div>
+          onClick={(e)=> handleCardChange(2, e, fiveProjects[2].project.id)}
+        >
+          {fiveProjects[2].project == false ? 
+            null :
+            <div className="projectCard">
+              <span className="project-categ"><h2>{fiveProjects[2].project.category}</h2></span>
+              <h1 className="project-title">{fiveProjects[2].project.name}</h1>
+              <h3 className="project-date">{`Dia ${fiveProjects[2].project.date.split('T')[0].split('-')[2]} de ${months[fiveProjects[0].project.date.split('T')[0].split('-')[1]]} de ${fiveProjects[0].project.date.split('T')[0].split('-')[0]}`}</h3>
+            </div> 
+          }
+        </div>
 
         <div className="card" 
           id={3} 
           ref={(el) => cards.current[3] = el}
-          onClick={(e)=> handleCardChange(3, e)}
-        ></div>
+          onClick={(e)=> handleCardChange(3, e, fiveProjects[3].project.id)}
+        >
+          {fiveProjects[3].project == false ? 
+            null :
+            <div className="projectCard">
+              <span className="project-categ"><h2>{fiveProjects[3].project.category}</h2></span>
+              <h1 className="project-title">{fiveProjects[3].project.name}</h1>
+              <h3 className="project-date">{`Dia ${fiveProjects[2].project.date.split('T')[0].split('-')[3]} de ${months[fiveProjects[0].project.date.split('T')[0].split('-')[1]]} de ${fiveProjects[0].project.date.split('T')[0].split('-')[0]}`}</h3>
+            </div> 
+          }
+        </div>
 
         <div className="card" 
           id={4} 
           ref={(el) => cards.current[4] = el}
-          onClick={(e)=> handleCardChange(4, e)}
-        ></div>
-        { }
+          onClick={(e)=> handleCardChange(4, e, fiveProjects[4].project.id)}
+        >
+          {fiveProjects[4].project == false ? 
+            null :
+            <div className="projectCard">
+              <span className="project-categ"><h2>{fiveProjects[4].project.category}</h2></span>
+              <h1 className="project-title">{fiveProjects[4].project.name}</h1>
+              <h3 className="project-date">{`Dia ${fiveProjects[2].project.date.split('T')[0].split('-')[4]} de ${months[fiveProjects[0].project.date.split('T')[0].split('-')[1]]} de ${fiveProjects[0].project.date.split('T')[0].split('-')[0]}`}</h3>
+            </div> 
+          }
+        </div>
         
         {!showCards ? <div className="card empty" onClick={()=>{handleShowCards()}}></div> : null}
 
@@ -124,7 +186,7 @@ const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) =>
         <div
           className={`dot ${currentIndex === 2 ? 'active' : ''}`}
           onClick={() => handleCardChange(2)}
-        ></div>
+        > </div>
         <div
           className={`dot ${currentIndex === 3 ? 'active' : ''}`}
           onClick={() => handleCardChange(3)}

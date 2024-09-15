@@ -14,13 +14,19 @@ router.get('/verifyToken', jwtMiddleware, (req, res) => {
 
 router.post("/login", loginUser)
 router.post("/register", registerUser)
+
+// PRIVATE ROUTES DOWN ->
+// PRIVATE ROUTES DOWN ->
+// PRIVATE ROUTES DOWN ->
+
+// TASKS/PROJECTS POST PRIVATE ROUTES
+
 router.post("/create-project", createProjectMiddleware, (req, res) => {
     return res.json({msg: "Projeto criado com sucesso!", project: req.project})
 })
 
-// PRIVATE ROUTES
+// TASKS/PROJECTS GET PRIVATE ROUTES
 
-// PROJECTS ROUTES
 router.get('/home', homeMiddleware, (req, res) => {
     return res.json({
         msg: "Token validado! Passando nome e projetos...", 

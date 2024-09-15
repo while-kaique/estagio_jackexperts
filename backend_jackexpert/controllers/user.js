@@ -78,6 +78,42 @@ const projectMiddleware = (req, res, next) => {
         next();
     })
 }
+const createProjectMiddleware = (req, res, next) => {
+    console.log('passo 1')
+
+    const token = req.body.token;
+    if (!token) {
+        console.log('passo 2')
+        return res.status(403).json({ msg: 'Token não fornecido.', token: false });
+    }
+    console.log('passo 3')
+
+
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
+        console.log('passo 4')
+        if (err) {
+            console.log('passo 5')
+            return res.status(401).json({msg: 'Token Inválido', token: false});
+        } else {
+            console.log('verify true')
+            const user = decoded
+            
+            const dateToday = moment().format('YYYY-MM-DD')
+
+            db.query(`INSERT INTO taskmaneger_db.projects (name, user_id, description, category, date) VALUES (?, ?, ?, ?, ?)`,[req.body.name, user.id, req.body.description, req.body.category, dateToday], (err, result) => {
+                if (err) {
+                    console.log(err)
+                    return res.status(500).json({ msg: 'Erro ao inserir projeto.', err });
+                }
+                console.log('query true')
+                const newProject = {name: req.body.name, description: req.body.description, category: req.body.category, date: dateToday}
+                req.project = newProject
+                
+                next()
+            })
+        }
+    });
+}
 const cardsMiddleware = (req, res, next) => {
     db.query("SELECT * FROM taskmaneger_db.projects WHERE user_id = ?", [decoded.id], (err, result)=>{
         if(err){    
@@ -104,18 +140,18 @@ const homeMiddleware = (req, res, next) => {
 
     jwt.verify(tokenWithoutBearer, process.env.SECRET, (err, decoded) => {
         if (err) {
-            return res.status(401).json({msg: 'Token Inválido'});
+            return res.status(401).json({msg: 'Token Inválido', token: false});
         } else {
             const user = decoded
             db.query("SELECT name FROM taskmaneger_db.users WHERE id = ?", [user.id], (err, user_result)=> {
                 if(err){    
-                    return res.json(err)
+                    return res.json({msg: 'Usuário não existe.', token: false})
                 }     
                 const name = user_result[0].name
                 db.query("SELECT * FROM taskmaneger_db.projects WHERE user_id = ?", [user.id], (err, projects_result)=>{
                     
                     if(err){    
-                        return res.json(err)
+                        return res.json({msg: 'Projeto não existe', token: false})
                     }     
                     
                     if (projects_result.length == 0){
@@ -198,4 +234,4 @@ const registerUser = (req, res) => {
     })
 }
 
-export {loginUser, registerUser, jwtMiddleware, projectsMiddleware, projectMiddleware, cardsMiddleware, homeMiddleware} 
+export {loginUser, registerUser, jwtMiddleware, projectsMiddleware, projectMiddleware, cardsMiddleware, homeMiddleware, createProjectMiddleware} 

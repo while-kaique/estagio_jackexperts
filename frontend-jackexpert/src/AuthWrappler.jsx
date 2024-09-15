@@ -2,7 +2,6 @@
 import PropTypes from 'prop-types'
 import axios from 'axios';
 import { useState } from 'react';
-import Loading from './components/Loading';
 import Header from './components/Header.jsx'
 
 // Cria o contexto

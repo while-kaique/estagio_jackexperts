@@ -8,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaBriefcase, FaHeart, FaHome, FaSchool, FaMusic, FaUsers, FaEllipsisH } from "react-icons/fa";
 
 const FormModel = ({isRegister, isLogin, isCreatingProject, isCreatingCard}) => {
-    
-    
+
+  
     const navigate = useNavigate()
 
     const categories = [
@@ -56,10 +56,19 @@ const FormModel = ({isRegister, isLogin, isCreatingProject, isCreatingCard}) => 
         .catch(err => console.log(err.response.data.msg))
     }   
     const handleClickCreateProject = (values) => {
-        console.log('criou projeto com os dados: ')
-        console.log(values)
-        alert('Projeto criado com sucesso!')
-        navigate('/')
+        const token = localStorage.getItem('jwtToken');
+        axios.post("http://localhost:8800/create-project", {
+            name: values.name,
+            email: values.email,
+            description: values.description,
+            category: values.category,
+            token
+          })
+        .then((res) => {
+            console.log(res.data)
+            alert('Projeto criado com sucesso!')
+        })
+        .catch(err => console.log(err.response.data.msg))
     }
 
     const validationLogin = yup.object().shape({

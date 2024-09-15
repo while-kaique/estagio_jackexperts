@@ -1,6 +1,6 @@
 
 import express from 'express'
-import {loginUser, registerUser, jwtMiddleware, projectsMiddleware, projectMiddleware, cardsMiddleware, homeMiddleware} from '../controllers/user.js'  
+import {loginUser, registerUser, jwtMiddleware, projectsMiddleware, projectMiddleware, cardsMiddleware, homeMiddleware, createProjectMiddleware} from '../controllers/user.js'  
 
 const router = express.Router()
 
@@ -14,6 +14,9 @@ router.get('/verifyToken', jwtMiddleware, (req, res) => {
 
 router.post("/login", loginUser)
 router.post("/register", registerUser)
+router.post("/create-project", createProjectMiddleware, (req, res) => {
+    return res.json({msg: "Projeto criado com sucesso!", project: req.project})
+})
 
 // PRIVATE ROUTES
 
@@ -21,7 +24,7 @@ router.post("/register", registerUser)
 router.get('/home', homeMiddleware, (req, res) => {
     return res.json({
         msg: "Token validado! Passando nome e projetos...", 
-        data: {projects: req.projects, name: req.name}
+        user: {projects: req.projects, name: req.name}
     })
 })
 router.get('/projects', projectsMiddleware , (req, res) => {

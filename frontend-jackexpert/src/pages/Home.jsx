@@ -23,6 +23,7 @@ const Home = () => {
   const [userName, setUserName] = useState(false)
   const [userProjects, setUserProjects] = useState([])
   const [fiveProjects, setFiveProjects] = useState([]);
+  const [isAuth, setIsAuth] = useState(false)
 
   const [isLoading, setIsLoading] = useState(true)
   const taskCategories = useRef([])
@@ -53,17 +54,24 @@ const Home = () => {
     },
     withCredentials: true // Inclui cookies na requisição
   })
-  .then(res => res.data.data)
-  .then((data) => {
-    if (data.name == userName){ return }
-    setUserName(data.name)
-    setUserProjects(data.projects)
-    if (data.projects) {get5Projects(data.projects)}
+  .then(res => res.data.user)
+  .then((user) => {
+    if (user.name == userName){ return }
+    setUserName(user.name)
+    setUserProjects(user.projects)
+    setIsAuth(true)
+    if (user.projects) {get5Projects(user.projects)}
     setTimeout(() => {
       setIsLoading(false)
     }, 50);
   })
-  .catch(err => console.log(err.response.data.msg))
+  .catch(err => {
+    setIsAuth(err.response.data.token)
+    console.log(err.response.data.msg)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 50); 
+  })
 
   const handleShowCards = () => {
     setShowCards(!showCards)
@@ -75,6 +83,7 @@ const Home = () => {
     e.target.classList.add('active')
   }
 
+  console.log(isAuth)
   return (
     <>
       {isLoading ? 
@@ -124,8 +133,15 @@ const Home = () => {
           <CardScroll fiveProjects={fiveProjects} userProjects={userProjects} showCards={showCards} setShowCards={setShowCards} handleShowCards={handleShowCards}/>
            :
            <div className='no_projects'>
-             <h2>Você não possui nenhum projeto ativo</h2>
-             <div className='home_addIcon' onClick={()=>{navigate('/createProject')}}><IoIosAdd className='home_icon'/><p>Adicionar Projeto</p></div>
+              <h2>Você não possui nenhum projeto ativo</h2>
+              {isAuth ? 
+                <div className='home_addIcon' onClick={()=>{navigate('/createProject')}}><IoIosAdd className='home_icon'/>
+                  <p>Adicionar Projeto</p>
+                </div> :
+                <div className='home_addIcon' onClick={()=>{navigate('/login')}}><IoIosAdd className='home_icon'/>
+                  <p>Adicionar Projeto</p>
+                </div>
+             }
            </div>
         }
 
@@ -138,16 +154,6 @@ const Home = () => {
               <CgMathMinus className='minusIcon'/>
           </button> 
           : null
-        }
-        
-        <h1 className='main_title'>Seus cards</h1>
-        {userProjects[0] ? 
-          <CardScroll fiveProject={fiveProjects} userProjects={userProjects} showCards={showCards} handleShowCards={handleShowCards}/>
-           :
-           <div className='no_projects'>
-             <h2>Você não possui nenhuma tarefa ativa</h2>
-             <div className='home_addIcon' onClick={()=>{navigate('/createTask')}}><IoIosAdd className='home_icon'/><p>Adicionar tarefa</p></div>
-           </div>
         }
       </div>
       }

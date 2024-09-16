@@ -1,0 +1,55 @@
+.project-header{
+    width: 100vw;
+    height: 50vh;
+
+    background-color: white;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    box-shadow: 0px 5px 10px rgba(59, 59, 59, 0.116);
+}
+
+.project-header div#date-button {
+    display: flex;
+    justify-content: space-between;
+
+    width: 90vw;
+    margin-left: auto;
+}
+
+.project-header div#date-button h3 {
+
+    text-align: start;
+    font-size: 1.8rem;
+    color: #2E3A59;
+}
+
+
+.project_addIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+
+    border-radius: 30px;
+
+    margin: auto;
+    
+    background-image: linear-gradient(to right, #9C2CF3, #3A49F9);
+
+    cursor: pointer;
+}
+.project_addIcon p{
+    font-size: .6rem;
+    padding: 5px;
+    color: white;
+}
+.project_addIcon .project_icon{
+    width: 20%;
+    height: 100%;
+
+    color: white;
+
+}

@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
-import './CardScroll.css'
+import './FiveCardsScroll.css'
 
 
-const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) => {
+const FiveCardsScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) => {
   const navigate = useNavigate()
   console.log(userProjects)
   const months = {
@@ -90,7 +90,7 @@ const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) =>
   }
 
   return (
-    <section className="containerPjCards">
+    <div id="fiveCards"><section className="containerPjCards">
       <div className={`pj_cards ${showCards ? 'show' : ''}`} ref={cardsWrappler}>
         <div className="card first active" 
           id={0}
@@ -197,14 +197,15 @@ const CardScroll = ({fiveProjects, userProjects, handleShowCards, showCards}) =>
         ></div>
       </div> : null}
     </section>
+  </div>
   )
 }
 
-CardScroll.propTypes = {
+FiveCardsScroll.propTypes = {
     showCards: PropTypes.bool,
     handleShowCards: PropTypes.func,
     userProjects: PropTypes.array,
     fiveProjects: PropTypes.array,
 }
 
-export default CardScroll
+export default FiveCardsScroll

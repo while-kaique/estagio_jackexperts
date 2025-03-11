@@ -1,6 +1,5 @@
 .project-header{
     width: 100vw;
-    height: 50vh;
 
     background-color: white;
 
@@ -10,16 +9,17 @@
     box-shadow: 0px 5px 10px rgba(59, 59, 59, 0.116);
 }
 
+/* DATE / ADD BUTTON */
 .project-header div#date-button {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     width: 90vw;
     margin-left: auto;
 }
 
 .project-header div#date-button h3 {
-
     text-align: start;
     font-size: 1.8rem;
     color: #2E3A59;
@@ -52,4 +52,42 @@
 
     color: white;
 
+}
+
+/* TITLE / CATEGORY */
+
+.project-header div#obj-categ {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding: 40px 0;
+    margin-left: auto;
+
+    width: 90vw;
+}
+.project-header div#obj-categ h1 {
+    width: 90%;
+
+    text-align: start;
+    font-size: 1.8rem;
+    color: #2E3A59;
+}
+div#obj-categ p{
+    width: 90%;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #2E3A59;
+
+    margin: 15px auto;
+}
+
+main{
+    width: 100vw;
+}
+
+main div.tasks{
+    width: 90vw;
+    margin: 40px 0 40px auto;
 }

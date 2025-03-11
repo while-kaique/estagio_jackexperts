@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios'
 
 import '../pages_css/Home.css'
-import CardScroll from '../sub_elements/CardScroll';
+import FiveCardsScroll from '../sub_elements/FiveCardsScroll';
 
 import { CgMathMinus } from "react-icons/cg";
 import { IoIosAdd } from "react-icons/io";
@@ -123,7 +123,7 @@ const Home = () => {
         {/* CARD SCROLL */}
         <h1 className='main_title'>Seus projetos</h1>
         {userProjects[0] ? 
-          <CardScroll fiveProjects={fiveProjects} userProjects={userProjects} showCards={showCards} setShowCards={setShowCards} handleShowCards={handleShowCards}/>
+          <FiveCardsScroll fiveProjects={fiveProjects} userProjects={userProjects} showCards={showCards} setShowCards={setShowCards} handleShowCards={handleShowCards}/>
            :
            <div className='no_projects'>
               <h2>Você não possui nenhum projeto ativo</h2>

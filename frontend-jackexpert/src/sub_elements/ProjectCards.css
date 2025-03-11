@@ -4,7 +4,6 @@
 .containerPjCards {
     position: relative;
     width: 100%;
-    height: auto;
     margin: auto;
     overflow: hidden;
 
@@ -12,22 +11,11 @@
   }
   div.pj_cards {
     display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    margin: 20px auto;
-
-  
-    scrollbar-width: none; /* Firefox */
-    scroll-behavior: smooth;
-    padding-right: 50px;
-    
-  }
-  div.pj_cards.show{
     flex-wrap: wrap;
     justify-content: center;
-    width: 90%;
-    padding: 0;
+    width: 100%;
+    margin: 20px auto;
+    
   }
   .pj_cards .card {
     min-width: 280px;
@@ -41,58 +29,6 @@
     user-select: none;
     
     cursor: pointer;
-  
-    opacity: 1;
-    transition: opacity .6s
-  }
-
-  .pj_cards.show .card{
-    min-width: 180px;
-    height: 180px;
-
-    transition: opacity 1s
-  }
-  
-  .card.first {
-    margin-left: calc(50vw - 140px);
-  }
-  .pj_cards.show .card.first{
-    margin-left: 0px;
-  }
-  
-  .card.next, .card.prev{
-    opacity: .5;
-  }
-  
-  .pj_cards::-webkit-scrollbar {
-    display: none; /* Chrome, Safari e outros navegadores baseados no WebKit */
-  }
-  .pj_cards .card.empty {
-    background-color: rgba(170, 170, 170, 0.164);
-  }
-
-  /* .DOT BALLS */
-  /* .DOT BALLS */
-
-  .navigation-dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-  }
-  
-  .dot {
-    width: 12px;
-    height: 12px;
-    margin: 0 5px;
-    border-radius: 10px;
-    background-color: lightgray;
-    cursor: pointer;
-    transition: .3s;
-  }
-  
-  .dot.active {
-    background-color: #3A49F9;
-    width: 40px;
   }
 
   /* PROJECT STYLES */

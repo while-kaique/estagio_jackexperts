@@ -35,12 +35,13 @@ Na página Cadastro podemos criar/cadastrar um novo usuário no Banco de Dados M
 - Express
 - Multer
 - MySQL
+- JWT
 ## Front end
 - HTML / CSS / JavaScript
 - ReactJS
 - Redux
 - Tailwind
-- JWT
+- Formik
 ## Implantação em produção
 - Back end: Render
 - Front end: Vercel

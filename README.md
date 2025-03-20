@@ -17,7 +17,7 @@ Além disso, o site é Mobile-First, portanto, possui responsividade completa e 
 ## Layout Login
 Já página Login, podemos acessar a conta previamente cadastrada do usuário (API Node.js com MySQL) e retornar à página Home com o nome "Jovem Garfanhoto" subsituído pelo nome da conta cadastrada.
 
-Como utilizamos um sistema de Token JWT, guardamos o Token do usuário para que o mesmo não precisa realizar Login a cada reload da página. Também usamos a técnica "Toke Refresh" para que o usuário posso até mesmo passar o dia utilizando o site, com a validade do Token sendo recuperada a cada vez que expira.
+Como utilizamos um sistema de Token JWT, guardamos o Token do usuário para que o mesmo não precisa realizar Login a cada reload da página. Também usamos a técnica "Token Refresh" para que o usuário posso até mesmo passar o dia utilizando o site, com a validade do Token sendo recuperada a cada vez que expira.
 
 ![Login Page](https://github.com/user-attachments/assets/17a1d9c9-80b0-47c8-8e25-df97d1985749)
 
